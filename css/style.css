@@ -146,3 +146,68 @@ div#banner {
   border: 2px solid #FFF;
   box-shadow: 2px 1px 10px rgba(0, 0, 0, 1);
 }
+
+div.promotions {
+  width: 100vw;
+  height: 130px;
+  background-color: #EBE3C2;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+div.promotions div.promotion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+div.promotions div.promotion div.promotion_image {
+  width: 96px;
+  height: 96px;
+  padding: 10px;
+  border-radius: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF;
+  box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.4);
+  z-index: 99;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+div.promotions div.promotion div.promotion_image i {
+  font-size: 72px;
+  color: #47470F;
+}
+
+div.promotions div.promotion_text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #47470F;
+  margin-left: -50px;
+  background-color: #FFF;
+  box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.4);
+  height: 90px;
+  width: 190px;
+  border-radius: 20px;
+}
+
+div.promotions div.promotion_text div.promotion_text_text{
+  width: 68%;
+  height: 100%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.promotions div.promotion_text div.promotion_text_text span {
+  margin-left: -30px;
+  font-style: italic;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+ }
