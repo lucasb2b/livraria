@@ -211,3 +211,32 @@ div.promotions div.promotion_text div.promotion_text_text span {
   margin-top: 5px;
   margin-bottom: 5px;
  }
+
+ div#brands {
+  height: 150px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+ }
+
+ div#brands h1 {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-style: italic;
+  font-family: 30px;
+  font-weight: 300;
+  color: #47470F;
+  margin-top: 10px;
+ }
+
+ div#brands div#frame_image {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+ }
+
+ div#brands div#frame_image img {
+  width: 333px;
+ }
