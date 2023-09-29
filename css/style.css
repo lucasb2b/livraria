@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 *{
   margin: 0;
@@ -11,7 +12,7 @@
 header.header {
   background-color: #FBFB9B;
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 90px;
   justify-content: space-around;
 }
@@ -107,7 +108,7 @@ nav ul li a {
 }
 
 div#banner {
-  width: 100vw;
+  width: 100%;
   height: 256px;
   background-image: url(../img/30428.jpg);
   background-size: 100% auto;
@@ -148,7 +149,7 @@ div#banner {
 }
 
 div.promotions {
-  width: 100vw;
+  width: 100%;
   height: 130px;
   background-color: #EBE3C2;
   display: flex;
@@ -214,7 +215,7 @@ div.promotions div.promotion_text div.promotion_text_text span {
 
  div#brands {
   height: 150px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
  }
@@ -240,3 +241,126 @@ div.promotions div.promotion_text div.promotion_text_text span {
  div#brands div#frame_image img {
   width: 333px;
  }
+
+ div#some_books {
+  width: 100%;
+  height: 530px;
+  margin-top: 15px;
+  background-color: #A48C74;
+ }
+
+ div#some_books h1 {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.875rem;
+  font-style: italic;
+  color: #fff;
+  font-weight: 300;
+ }
+
+div#some_books div.books_seller {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+div#some_books div.books_seller div.book_seller {
+  width: 393px;
+  height: 393px;
+  background-color: #FFF;
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: 0.4fr 0.6fr;
+  grid-template-rows: 240px 153px;
+  grid-template-areas: 
+    "book_image book_description"
+    "book_button book_button";
+  gap: 0;
+}
+
+.book_image, .book_description{
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.book_image {
+  grid-area: book_image;
+}
+
+.book_image img {
+  width: 146px;
+  height: 250px;
+  padding-left: 15px;
+  padding-top: 25px;
+}
+
+.book_description {
+  grid-area: book_description;
+}
+
+.book_description h4 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  color: #1D1717;
+  padding-top: 25px;
+}
+
+.book_description strong {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.book_description p {
+  font-family: 'Merriweather', serif;
+  font-size: 18px;
+  text-align: justify;
+  color: #1D1717;
+  font-weight: 300;
+  text-indent: 15px;
+  padding-right: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 6; /** número de linhas que você quer exibir */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book_button {
+  grid-area: book_button;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.book_button a {
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.825rem;
+  font-weight: bolder;
+  font-style: italic;
+  color: #F9F9F9;
+  background-color: #604E3C;
+  border: 2px solid #47470F;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 60px;
+  padding-right: 60px;
+  border-radius: 60px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
