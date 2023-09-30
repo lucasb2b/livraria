@@ -247,6 +247,7 @@ div.promotions div.promotion_text div.promotion_text_text span {
   height: 530px;
   margin-top: 15px;
   background-color: #A48C74;
+  border-bottom: 1px solid #787474;
  }
 
  div#some_books h1 {
@@ -362,5 +363,33 @@ div#some_books div.books_seller div.book_seller {
   padding-right: 60px;
   border-radius: 60px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+#footer {
+  width: 100%;
+  height: 74px;
+  background: #EBE3C2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#footer #name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.375rem;
+  font-weight: 200;
+  color: #47470F;
+}
+
+#footer #name strong {
+  font-weight: 200;
+  color: rgba(71, 71, 15, 0.41);
+}
+
+#footer #social_networks i {
+  color: #47470F;
+  font-size: 2rem;
 }
 
