@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  width: 100%;
+  height: 100px;
+  background-color: #FBFB9B;
+  display: flex;
+}
+
+header #logo {
+  width: 328px;
+  background-color: #D8D884;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-style: italic;
+  font-size: 2.5rem;
+  color: #413B3B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header #username {
+  width: 952px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  padding-right: 30px;
+}
+
+header #username strong {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.375rem;
+  font-weight: bold;
+  color: black;
+}
+
+#content {
+  display: flex;
+}
+
+#content aside {
+  width: 328px;
+  background-color: #C5C5C5;
+  height: calc(100vh - 100px);
+}
+
+#content main {
+  width: calc(1280px - 328px);
+  background-color: bisque;
+}
+
+#profile {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#profile div:nth-child(2) {
+  padding-left: 5px;
+}
+
+#profile div:nth-child(2) h4 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #424F3C;
+  margin-bottom: 10px;
+  background-color: #C5C5C5;
+}
+
+#profile div:nth-child(2) strong {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #424F3C;
+}
+
+#profile div:nth-child(2) strong b {
+  color: #12FF66;
+}
+
+aside h5{
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  width: 100%;
+  background-color: #D9D9D9;
+  text-align: center;
+  padding: 5px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
