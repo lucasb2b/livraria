@@ -56,7 +56,6 @@ header #username strong {
 
 #content main {
   width: calc(1280px - 328px);
-  background-color: bisque;
 }
 
 #profile {
@@ -100,4 +99,95 @@ aside h5{
   padding: 5px;
   margin-top: 25px;
   margin-bottom: 25px;
+}
+
+ nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-left: 20px;
+  list-style: none;
+  justify-content: center;
+}
+
+nav ul li {
+  padding-top: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+nav ul li a i {
+  font-size: 32px;
+}
+
+main h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 26px;
+  font-weight: 300;
+  margin-left: 25px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+main #form_book {
+  width: 90%;
+  margin: 0 auto;
+}
+
+main #form_book form {
+  display: block;
+}
+
+main #form_book form label,input,select {
+  width: 100%;
+}
+
+form label {
+  display: inline-block;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+form input,select {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+form input,select,option {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  text-indent: 10px;
+  font-weight: 300;
+  background-color: #FFF;
+}
+
+form button {
+  margin-top: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 14px;
+  padding-right: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #fff;
+  background-color: #576073;
+  cursor: pointer;
 }

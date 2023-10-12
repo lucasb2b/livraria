@@ -10,7 +10,7 @@
 <body>
   <header>
     <div id="logo">Joia do Saber</div>
-    <div id="username"><i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B"></i><strong>Lucas Brito&nbsp;</strong> <i class='bx bxs-down-arrow' style="font-size: 12px;"></i></div>
+    <div id="username"><i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;">Lucas Brito&nbsp;</strong> <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer"></i></div>
   </header>
   <div id="content">
     <aside>
@@ -28,16 +28,33 @@
 
       <nav>
         <ul>
-          <li><a href="#">Gerenciar Livros</a></li>
-          <li><a href="#">Gerenciar Autores</a></li>
-          <li><a href="#">Gerenciar Fornecedores</a></li>
-          <li><a href="#">Gerenciar Peças</a></li>
-          <li><a href="#">Montagens</a></li>
+          <li><a href="#"><i class='bx bx-book'></i>&nbsp;Gerenciar Livros</a></li>
+          <li><a href="#"><i class='bx bx-user-circle' ></i>&nbsp;Gerenciar Autores</a></li>
+          <li><a href="#"><i class='bx bx-wrench'></i></i>&nbsp;Gerenciar Fornecedores</a></li>
+          <li><a href="#"><i class='bx bx-cog' ></i>&nbsp;Gerenciar Peças</a></li>
+          <li><a href="#"><i class='bx bx-layer'></i>&nbsp;Montagens</a></li>
         </ul>
       </nav>
     </aside>
     <main>
-      Cadastro de Livros
+      <h2>Cadastro de Livros</h2>
+      <div id="form_book">
+        <form action="">
+          <label>Título:</label>
+          <input type="text">
+          <label>Autor:</label>
+          <select>
+            <option value="a">Autor:</option>
+          </select>
+          <label for="">Ano de publicação:</label>
+          <input type="text">
+          <label for="">Gênero:</label>
+          <select name="" id="">
+            <option value="">Ficção</option>
+          </select>
+          <button type="submit"><i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar</button>
+        </form>
+      </div>
     </main>
   </div>
 </body>
