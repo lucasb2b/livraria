@@ -1,0 +1,31 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag 'views/sessions/new' %>
+<% end %>
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Joia do Saber</title>
+</head>
+<body>
+<div class="container_login">
+  <header class="header2">
+    <h1>Joia do Saber</h1>
+  </header>
+  <div id="login_form">
+    <h4>Login</h4>
+    <form action="">
+      <input type="text" placeholder="Usuário" class="fields" />
+      <input type="password" placeholder="Senha" class="fields" />
+      <div id="actions">
+        <button type="submit" id="singin">Entrar</button>
+        <a href="#">Esqueci a minha senha!</a>
+      </div>
+    </form>
+    <a href="#" class="new">Novo? Criar uma conta!</a>
+  </div>
+</div>
+</body>
+</html>

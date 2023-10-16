@@ -11,7 +11,7 @@
   <title>Home - Joia do Saber</title>
 </head>
 <body>
-  <header class="header">
+  <header class="header1">
     <div id="logo">
       Joia do Saber
     </div>
@@ -31,10 +31,10 @@
         </ul>
       </nav>
       <div id="login_nav">
-        <a href="#">
+        <%= link_to login_path do %>
           <i class='bx bx-user-circle'></i>
           Login
-        </a>
+        <% end %>
       </div>
     </div>
   </header>

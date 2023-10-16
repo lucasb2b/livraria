@@ -3,3 +3,4 @@
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
 //= link views/home/style.css
+//= link views/sessions/new.css
