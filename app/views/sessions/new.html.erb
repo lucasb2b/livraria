@@ -16,14 +16,14 @@
   </header>
   <div id="login_form">
     <h4>Login</h4>
-    <form action="">
-      <input type="text" placeholder="Usuário" class="fields" />
-      <input type="password" placeholder="Senha" class="fields" />
+    <%= form_with(model: @user, url: sessions_path) do |form| %>
+      <%= form.email_field :email, class: 'fields', placeholder: 'Usuário' %>
+      <%= form.password_field :password, class: 'fields', placeholder: 'Senha' %>
       <div id="actions">
-        <button type="submit" id="singin">Entrar</button>
+        <%= form.submit 'Entrar', id: 'singin'%>
         <a href="#">Esqueci a minha senha!</a>
       </div>
-    </form>
+    <% end %>
     <a href="#" class="new">Novo? Criar uma conta!</a>
   </div>
 </div>
