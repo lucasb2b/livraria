@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header3 {
+  width: 100%;
+  height: 100px;
+  background-color: #FBFB9B;
+  display: flex;
+}
+
+.header3 #logo {
+  width: 328px;
+  background-color: #D8D884;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-style: italic;
+  font-size: 2.5rem;
+  color: #413B3B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header3 #username {
+  width: 952px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  padding-right: 30px;
+}
+
+.header3 #username strong {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.375rem;
+  font-weight: bold;
+  color: black;
+}
+
+#content {
+  display: flex;
+}
+
+#content aside {
+  width: 328px;
+  background-color: #C5C5C5;
+  height: calc(100vh - 100px);
+}
+
+#content main {
+  width: calc(1280px - 328px);
+}
+
+#profile {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#profile div:nth-child(2) {
+  padding-left: 5px;
+}
+
+#profile div:nth-child(2) h4 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #424F3C;
+  margin-bottom: 10px;
+  background-color: #C5C5C5;
+}
+
+#profile div:nth-child(2) strong {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #424F3C;
+}
+
+#profile div:nth-child(2) strong b {
+  color: #12FF66;
+}
+
+aside h5{
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  width: 100%;
+  background-color: #D9D9D9;
+  text-align: center;
+  padding: 5px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.nav_dashboard ul {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-left: 20px;
+  list-style: none;
+  justify-content: center;
+}
+
+.nav_dashboard ul li {
+  padding-top: 10px;
+}
+
+.nav_dashboard ul li a {
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.nav_dashboard ul li a i {
+  font-size: 32px;
+}
+
+main h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 26px;
+  font-weight: 300;
+  margin-left: 25px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+main #form_book {
+  width: 90%;
+  margin: 0 auto;
+}
+
+main #form_book form {
+  display: block;
+}
+
+main #form_book form label,input,select {
+  width: 100%;
+}
+
+form label {
+  display: inline-block;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+form input,select {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+form input,select,option {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  text-indent: 10px;
+  font-weight: 300;
+  background-color: #FFF;
+}
+
+form button {
+  margin-top: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 14px;
+  padding-right: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #fff;
+  background-color: #576073;
+  cursor: pointer;
+}

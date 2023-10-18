@@ -1,0 +1,65 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag 'views/dashboard/dashboard' %>
+<% end %>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Dashboard Joia do Saber</title>
+</head>
+<body>
+<header class="header3">
+  <div id="logo">Joia do Saber</div>
+  <div id="username">
+    <i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;">Lucas Brito&nbsp;</strong> <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer"><div class="dropdown_menu" style="display: none"><ul>Sair</ul></div></i>
+  </div>
+</header>
+<div id="content">
+  <aside>
+    <div id="profile">
+      <div>
+        <i class='bx bxs-user-circle' style="font-size: 4.6875rem; color: #424F3C"></i>
+      </div>
+      <div>
+        <h4 id="uuser">Lucas Brito</h4>
+        <strong><b>&#9679;</b> Online</strong>
+      </div>
+    </div>
+
+    <h5>Gerenciar</h5>
+
+    <nav class="nav_dashboard">
+      <ul>
+        <li><a href="#"><i class='bx bx-book'></i>&nbsp;Gerenciar Livros</a></li>
+        <li><a href="#"><i class='bx bx-user-circle' ></i>&nbsp;Gerenciar Autores</a></li>
+        <li><a href="#"><i class='bx bx-wrench'></i></i>&nbsp;Gerenciar Fornecedores</a></li>
+        <li><a href="#"><i class='bx bx-cog' ></i>&nbsp;Gerenciar Peças</a></li>
+        <li><a href="#"><i class='bx bx-layer'></i>&nbsp;Montagens</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <h2>Cadastro de Livros</h2>
+    <div id="form_book">
+      <form action="">
+        <label>Título:</label>
+        <input type="text">
+        <label>Autor:</label>
+        <select>
+          <option value="a">Autor:</option>
+        </select>
+        <label for="">Ano de publicação:</label>
+        <input type="text">
+        <label for="">Gênero:</label>
+        <select name="" id="">
+          <option value="">Ficção</option>
+        </select>
+        <button type="submit"><i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar</button>
+      </form>
+    </div>
+  </main>
+</div>
+</body>
+</html>
