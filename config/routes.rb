@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # Dashboard
   get '/dashboard', to: 'dashboard#show'
+  get '/dashboard/author', to: 'dashboard#author'
 
   # Formulário de Login
   #get '/login', to: 'sessions#new', as: 'sessions'

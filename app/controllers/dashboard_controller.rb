@@ -5,6 +5,10 @@ class DashboardController < ApplicationController
     render 'dashboard'
   end
 
+  def author
+    render 'author'
+  end
+
   private
 
   def require_login
