@@ -13,7 +13,7 @@
 <header class="header3">
   <div id="logo">Joia do Saber</div>
   <div id="username">
-    <i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;">Lucas Brito&nbsp;</strong> <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer"><div class="dropdown_menu" style="display: none"><ul>Sair</ul></div></i>
+    <i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;"><%= @current_user.name %>&nbsp;</strong> <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer"><div class="dropdown_menu" style="display: none"><ul>Sair</ul></div></i>
   </div>
 </header>
 <div id="content">
@@ -42,11 +42,7 @@
     </nav>
   </aside>
   <main>
-    <h2>Cadastro de Autores de Livros</h2>
-    <h6>
-      <%= flash.notice %>
-      <%= flash.alert %>
-    </h6>
+    <h2>Gerenciar Montagens</h2>
     <div id="form_book">
       <form action="">
         <label>Título:</label>

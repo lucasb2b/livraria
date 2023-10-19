@@ -3,11 +3,24 @@ class DashboardController < ApplicationController
 
   def show
     render 'dashboard'
+    @user = current_user
   end
-
   def author
     render 'author'
   end
+  def book
+    render 'book'
+  end
+  def supplier
+    render 'supplier'
+  end
+  def part
+    render 'part'
+  end
+  def assembly
+    render 'assembly'
+  end
+
 
   private
 
