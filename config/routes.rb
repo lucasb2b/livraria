@@ -22,12 +22,6 @@ Rails.application.routes.draw do
   get '/dashboard/part', to: 'dashboard#part'
   get '/dashboard/assembly', to: 'dashboard#assembly'
 
-  # Formulário de Login
-  #get '/login', to: 'sessions#new', as: 'sessions'
-
-  # Rota para lidar com a submissão do formulário de sessions
-  #post '/login', to: 'sessions#create'
-
-  # Rota para logout
-  #delete '/logout', to: 'sessions#destroy', as: 'logout'
+  # Author
+  post '/dashboard/author/', to: 'author#create', as: 'create_author'
 end

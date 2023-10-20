@@ -44,21 +44,13 @@
   <main>
     <h2>Cadastro de Autores de Livros</h2>
     <div id="form_book">
-      <form action="">
-        <label>Título:</label>
-        <input type="text">
-        <label>Autor:</label>
-        <select>
-          <option value="a">Autor:</option>
-        </select>
-        <label for="">Ano de publicação:</label>
-        <input type="text">
-        <label for="">Gênero:</label>
-        <select name="" id="">
-          <option value="">Ficção</option>
-        </select>
-        <button type="submit"><i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar</button>
-      </form>
+      <%= form_with(model: @author, local: true) do |form| %>
+        <%= form.label :name, "Nome do Autor:" %>
+        <%= form.text_field :name, id: "name"%>
+        <%= form.label :cpf, "CPF:" %>
+        <%= form.text_field :cpf, id: "cpf" %>
+        <%= form.submit 'Cadastrar' %>
+      <% end %>
     </div>
   </main>
 </div>
