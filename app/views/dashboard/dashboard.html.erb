@@ -23,7 +23,7 @@
         <i class='bx bxs-user-circle' style="font-size: 4.6875rem; color: #424F3C"></i>
       </div>
       <div>
-        <h4 id="uuser">Lucas Brito</h4>
+        <h4 id="uuser"><%= @current_user.name %></h4>
         <strong><b>&#9679;</b> Online</strong>
       </div>
     </div>
@@ -43,13 +43,9 @@
   </aside>
   <main>
     <h2>Área administrativa</h2>
-    <h6>
-      <%= flash.notice %>
-      <%= flash.alert %>
-    </h6>
     <div class="information">
-      <h1>Seja bem vindo <strong>Usuário</strong></h1>
-      <div class="warning"><p>Clique no botão ao lado para sair e voltar a home page. &#10140;</p><a href="#" class="dash_button"><i class='bx bxs-door-open'></i>&nbsp;Sair Do Dashboard</a></div>
+      <h1>Seja bem vindo <strong><%= @current_user.name %></strong></h1>
+      <div class="warning"><p>Clique no botão ao lado para sair e voltar a home page. &#10140;</p><%= button_to sign_out_sessions_path, method: :delete, class: 'dash_button' do %><i class='bx bxs-door-open'></i>&nbsp;Sair Do Dashboard<% end %></div>
       <hr>
       <div class="change_data">
         <h2>Alterar a senha da conta</h2>
