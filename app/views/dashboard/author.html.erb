@@ -44,12 +44,14 @@
   <main>
     <h2>Cadastro de Autores de Livros</h2>
     <div id="form_book">
-      <%= form_with(model: @author, local: true) do |form| %>
+      <%= form_for(:author, url: create_author_path, method: :post) do |form| %>
         <%= form.label :name, "Nome do Autor:" %>
         <%= form.text_field :name, id: "name"%>
         <%= form.label :cpf, "CPF:" %>
         <%= form.text_field :cpf, id: "cpf" %>
-        <%= form.submit 'Cadastrar' %>
+        <%= button_tag(type: 'submit') do %>
+          <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
+        <% end %>
       <% end %>
     </div>
   </main>
