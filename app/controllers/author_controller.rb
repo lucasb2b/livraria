@@ -19,8 +19,14 @@ class AuthorController < ApplicationController
   end
   def create
     author = Author.new(author_params)
-    author.save
-    redirect_to dashboard_author_path
+
+    if author.save
+      flash[:success] = "Autor cadastrado com sucesso!"
+      redirect_to dashboard_author_path
+    else
+      flash[:error] = "Erro ao processar a solicitação!"
+      redirect_to dashboard_author_path
+    end
   end
   def destroy
     author = Author.find(params[:id])
