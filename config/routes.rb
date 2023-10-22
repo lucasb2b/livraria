@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   post '/dashboard/book/', to: 'books#create', as: 'create_book'
   # Supplier
   post '/dashboard/supplier/', to: 'suppliers#create', as: 'create_supplier'
+  # Part
+  post '/dashboard/part/', to: 'parts#create', as: 'create_part'
 end

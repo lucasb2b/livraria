@@ -35,30 +35,32 @@
         <li><%= link_to dashboard_path do %><i class='bx bx-home'></i>&nbsp;Home<% end %></li>
         <li><%= link_to dashboard_book_path do %><i class='bx bx-book'></i>&nbsp;Gerenciar Livros<% end %></li>
         <li><%= link_to dashboard_author_path do %><i class='bx bx-user-circle' ></i>&nbsp;Gerenciar Autores<% end %></li>
-        <li><%= link_to dashboard_supplier_path do %><i class='bx bx-wrench'></i></i>&nbsp;Gerenciar Fornecedores<% end %></li>
+        <li><%= link_to dashboard_supplier_path do %><i class='bx bx-wrench'></i>&nbsp;Gerenciar Fornecedores<% end %></li>
+        <li><%= link_to dashboard_supplier_path do %><i class='bx bx-wallet'></i>&nbsp;Contas de Fornecedores<% end %></li>
         <li><%= link_to dashboard_part_path do %><i class='bx bx-cog' ></i>&nbsp;Gerenciar Peças<% end %></li>
         <li><%= link_to dashboard_assembly_path do %><i class='bx bx-layer'></i>&nbsp;Montagens<% end %></li>
       </ul>
     </nav>
   </aside>
   <main>
-    <h2>Gerenciar peças</h2>
+    <h2>Cadastrar Peças</h2>
     <div id="form_book">
-      <form action="">
-        <label>Título:</label>
-        <input type="text">
-        <label>Autor:</label>
-        <select>
-          <option value="a">Autor:</option>
-        </select>
-        <label for="">Ano de publicação:</label>
-        <input type="text">
-        <label for="">Gênero:</label>
-        <select name="" id="">
-          <option value="">Ficção</option>
-        </select>
-        <button type="submit"><i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar</button>
-      </form>
+      <div>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+      </div>
+      <%= form_for(:part, url: create_part_path, method: :post) do |f|%>
+        <%= f.label :name, "Nome da Peça:" %>
+        <%= f.text_field :name, id: "name", required: "true" %>
+        <%= f.label :part_number, "Part Number:" %>
+        <%= f.text_field :part_number, id: "part_number", required: "true" %>
+        <%= button_tag(type: 'submit') do %>
+          <i class="bx bxs-plus-circle"></i>&nbsp;Cadastrar
+        <% end %>
+      <% end %>
     </div>
   </main>
 </div>
