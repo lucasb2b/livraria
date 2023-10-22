@@ -42,23 +42,24 @@
     </nav>
   </aside>
   <main>
-    <h2>Gerenciar fornecedores</h2>
+    <h2>Cadastro de Fornecedores</h2>
     <div id="form_book">
-      <form action="">
-        <label>Título:</label>
-        <input type="text">
-        <label>Autor:</label>
-        <select>
-          <option value="a">Autor:</option>
-        </select>
-        <label for="">Ano de publicação:</label>
-        <input type="text">
-        <label for="">Gênero:</label>
-        <select name="" id="">
-          <option value="">Ficção</option>
-        </select>
-        <button type="submit"><i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar</button>
-      </form>
+      <div>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+      </div>
+      <%= form_for(:supplier, url: create_supplier_path, method: :post) do |f|%>
+        <%= f.label :name, "Nome da Empresa:" %>
+        <%= f.text_field :name, id: "name", required: "true"%>
+        <%= f.label :cnpj, "CNPJ :" %>
+        <%= f.text_field :cnpj, id: "cnpj", required: "true"%>
+        <%= button_tag(type: 'submit') do %>
+          <i class="bx bxs-plus-circle"></i> &nbsp; Cadastrar
+        <% end %>
+      <% end %>
     </div>
   </main>
 </div>
