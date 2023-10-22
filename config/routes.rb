@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get '/dashboard/assembly', to: 'dashboard#assembly'
 
   # Author
-  post '/dashboard/author/', to: 'author#create', as: 'create_author'
+  post '/dashboard/author/', to: 'authors#create', as: 'create_author'
   # Book
-  post '/dashboard/book/', to: 'book#create', as: 'create_book'
+  post '/dashboard/book/', to: 'books#create', as: 'create_book'
 end
