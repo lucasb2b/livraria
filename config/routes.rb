@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/dashboard/author', to: 'dashboard#author'
   get '/dashboard/book', to: 'dashboard#book'
   get '/dashboard/supplier', to: 'dashboard#supplier'
+  get '/dashboard/account', to: 'dashboard#account'
   get '/dashboard/part', to: 'dashboard#part'
   get '/dashboard/assembly', to: 'dashboard#assembly'
 
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
   post '/dashboard/book/', to: 'books#create', as: 'create_book'
   # Supplier
   post '/dashboard/supplier/', to: 'suppliers#create', as: 'create_supplier'
+  # Account
+  post '/dashboard/account/', to: 'accounts#create', as: 'create_account'
   # Part
   post '/dashboard/part/', to: 'parts#create', as: 'create_part'
 end

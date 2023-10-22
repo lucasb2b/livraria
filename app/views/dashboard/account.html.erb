@@ -43,7 +43,7 @@
     </nav>
   </aside>
   <main>
-    <h2>Cadastro de Autores de Livros</h2>
+    <h2>Cadastro de Conta</h2>
     <div id="form_book">
       <div>
         <% flash.each do |key, value| %>
@@ -52,13 +52,15 @@
           </div>
         <% end %>
       </div>
-      <%= form_for(:author, url: create_author_path, method: :post) do |form| %>
-        <%= form.label :name, "Nome do Autor:" %>
-        <%= form.text_field :name, id: "name", required: "true" %>
-        <%= form.label :cpf, "CPF:" %>
-        <%= form.text_field :cpf, id: "cpf", required: "true" %>
+      <%= form_for(:account, url: create_account_path, method: :post) do |f|%>
+        <%= f.label :name, "A qual empresa a conta pertence?" %>
+        <%= f.collection_select :supplier_id, Supplier.all, :id, :name, prompt: "Selecione uma empresa" %>
+        <%= f.label :account_number, "Número da conta:" %>
+        <%= f.text_field :account_number, id: "account_number", required: "true" %>
+        <%= f.label :verify_number, "Dígito verificador:" %>
+        <%= f.text_field :verify_number, id: "verify_number", required: "true" %>
         <%= button_tag(type: 'submit') do %>
-          <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
+          <i class="bx bxs-plus-circle"></i>&nbsp;Cadastrar
         <% end %>
       <% end %>
     </div>

@@ -14,6 +14,10 @@ class DashboardController < ApplicationController
   def supplier
     render 'supplier'
   end
+
+  def account
+    render 'account'
+  end
   def part
     render 'part'
   end
