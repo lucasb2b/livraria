@@ -24,4 +24,6 @@ Rails.application.routes.draw do
 
   # Author
   post '/dashboard/author/', to: 'author#create', as: 'create_author'
+  # Book
+  post '/dashboard/book/', to: 'book#create', as: 'create_book'
 end

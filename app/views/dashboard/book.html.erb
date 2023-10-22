@@ -45,21 +45,26 @@
     <h2>Cadastro de Livros</h2>
 
     <div id="form_book">
-      <form action="">
-        <label>Título:</label>
-        <input type="text">
-        <label>Autor:</label>
-        <select>
-          <option value="a">Autor:</option>
-        </select>
-        <label for="">Ano de publicação:</label>
-        <input type="text">
-        <label for="">Gênero:</label>
-        <select name="" id="">
-          <option value="">Ficção</option>
-        </select>
-        <button type="submit"><i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar</button>
-      </form>
+      <div>
+        <% flash.each do |key,value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+      </div>
+      <%= form_for(:book, url: create_book_path, method: :post) do |f| %>
+        <%= f.label :title, "Título do livro" %>
+        <%= f.text_field :title, id: "title", required: "true" %>
+        <%= f.label :published_at, "Data de publicação" %>
+        <%= f.date_field :published_at %>
+        <%= f.label :isbn, "ISBN do livro" %>
+        <%= f.text_field :isbn, id: "isbn", required: "true" %>
+        <%= f.label :author_id, "Autor" %>
+        <%= f.collection_select :author_id, Author.all, :id, :name, prompt: "Selecione um autor" %>
+        <%= button_tag(type: 'submit') do %>
+          <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
+        <% end %>
+      <% end %>
     </div>
   </main>
 </div>
