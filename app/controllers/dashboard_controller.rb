@@ -22,6 +22,7 @@ class DashboardController < ApplicationController
     render 'part'
   end
   def assembly
+    @assembly = Assembly.new
     render 'assembly'
   end
 

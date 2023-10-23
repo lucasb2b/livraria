@@ -6,7 +6,8 @@ class PartsController < ApplicationController
   end
 
   def show
-
+    @part = Part.find(params[:id])
+    @assemblies = @part.assemblies
   end
 
   def new

@@ -33,4 +33,8 @@ Rails.application.routes.draw do
   post '/dashboard/account/', to: 'accounts#create', as: 'create_account'
   # Part
   post '/dashboard/part/', to: 'parts#create', as: 'create_part'
+  # Assembly
+  post '/dashboard/assembly/', to: 'assemblies#create', as: 'create_assembly'
+  # AssemblyParts
+  post '/dashboard/assembly_parts/', to: 'assemblies#assembly_part', as: 'create_assembly_part'
 end
