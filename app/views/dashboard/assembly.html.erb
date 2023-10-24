@@ -64,10 +64,12 @@
       <br>
       <div style="border: 1px solid red">
         <h3 class="association">Associar Montagens e Peças</h3>
-        <%= form_for @assembly, url: create_assembly_path, method: :post do |form| %>
-          <%= form.label :name, "name" %>
-          <%= form.text_field :name %>
-
+        <%= form_for(:assembly, url: create_assembly_part_path, method: :post) do |f| %>
+          <%= f.collection_select :id, Assembly.all, :id, :name, prompt: "Selecione uma montagem:" %>
+          <%= f.collection_select :id, Part.all, :id, :name, prompt: "Selecione uma peça:" %>
+          <%= button_tag(type: 'submit') do %>
+            <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
+          <% end %>
         <% end %>
       </div>
     </div>

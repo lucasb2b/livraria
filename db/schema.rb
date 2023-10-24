@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_003855) do
   end
 
   create_table "assemblies_parts", force: :cascade do |t|
-    t.bigint "assembly_id", null: false
-    t.bigint "part_id", null: false
+    t.bigint "assembly_id"
+    t.bigint "part_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assembly_id"], name: "index_assemblies_parts_on_assembly_id"
@@ -82,6 +82,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_003855) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "assemblies_parts", "assemblies"
-  add_foreign_key "assemblies_parts", "parts"
 end

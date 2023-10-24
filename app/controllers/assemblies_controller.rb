@@ -51,20 +51,11 @@ class AssembliesController < ApplicationController
   end
 
   def assembly_part
-    @part = Part.find(params[:part_id])
-    @assembly = Assembly.new(assembly_params)
+    @assembly = Assembly.find(params[:id])
+    @part = Part.find(params[:id])
 
-    if @assembly.save
-      @assembly = Assembly.last
-      if @assembly.parts << @part
-        redirect_to dashboard_assembly_path, notice: "Peça vinculada a montagem!"
-      else
-        redirect_to dashboard_assembly_path, notice: "Erro ao vincular peça a montagem"
-      end
-    else
-      flash[:error] = "Não foi possível completar a solicitação"
-      redirect_to dashboard_assembly_path
-    end
+
+
   end
 
   private
@@ -74,6 +65,10 @@ class AssembliesController < ApplicationController
   end
 
   def assembly_params
-    params.require(:assembly).permit(:name)
+    params.require(:assembly).permit(:id)
+  end
+
+  def part_params
+    params.require(:part).permit(:id)
   end
 end
