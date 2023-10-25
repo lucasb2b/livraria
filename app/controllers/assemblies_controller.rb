@@ -51,14 +51,15 @@ class AssembliesController < ApplicationController
   end
 
   def assembly_part
-    assembly = Assembly.where(id: params[:assembly][:ttt])
-    part =
+    #assembly = Assembly.where(id: params[:assembly][:ttt])
+    @part = Part.where(id: params[:assembly][:cu])
 
-    if assembly.empty?
-      puts "lucas"
-    else
-      puts assembly
-    end
+    @assembly = Assembly.find(params[:assembly][:ttt])
+    @parts = @assembly.parts
+
+    @assembly.parts << @part
+    flash[:success] = 'ok'
+    redirect_to dashboard_assembly_path
 
   end
 
