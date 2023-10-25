@@ -22,8 +22,6 @@ class DashboardController < ApplicationController
     render 'part'
   end
   def assembly
-    @assembly = Assembly.new
-    @part = Part.new
     render 'assembly'
   end
 

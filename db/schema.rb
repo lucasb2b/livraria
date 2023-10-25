@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_17_003855) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_25_005857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,11 +28,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_003855) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "assemblies_parts", force: :cascade do |t|
+  create_table "assemblies_parts", id: false, force: :cascade do |t|
     t.bigint "assembly_id"
     t.bigint "part_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["assembly_id", "part_id"], name: "index_assemblies_parts_on_assembly_id_and_part_id"
     t.index ["assembly_id"], name: "index_assemblies_parts_on_assembly_id"
     t.index ["part_id"], name: "index_assemblies_parts_on_part_id"
   end

@@ -51,24 +51,21 @@ class AssembliesController < ApplicationController
   end
 
   def assembly_part
-    @assembly = Assembly.find(params[:id])
-    @part = Part.find(params[:id])
+    assembly = Assembly.where(id: params[:assembly][:ttt])
+    part =
 
-
+    if assembly.empty?
+      puts "lucas"
+    else
+      puts assembly
+    end
 
   end
 
   private
 
-  def set_assembly
-    @assembly = Assembly.find(params[:id])
-  end
 
   def assembly_params
-    params.require(:assembly).permit(:id)
-  end
-
-  def part_params
-    params.require(:part).permit(:id)
+    params.require(:assembly).permit(:id, :name)
   end
 end
