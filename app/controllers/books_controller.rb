@@ -1,8 +1,10 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, :set_book, only: [:show, :edit, :update, :destroy]
+
 
   def index
     @books = Book.all
+    @user = current_user
   end
 
   def show

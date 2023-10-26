@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 *{
   margin: 0;
@@ -137,6 +138,11 @@ main h2 {
   margin-bottom: 30px;
 }
 
+main .table_information {
+    width: 90%;
+    margin: 0 auto;
+}
+
 main #form_book {
   width: 90%;
   margin: 0 auto;
@@ -264,4 +270,90 @@ form button {
     background-color: #f2dede;
     border-color: #ebccd1;
     color: #a94442;
+}
+
+.btn_show {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: 15px;
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #012347;
+    transition: 0.4s ease;
+}
+
+.btn_show:hover {
+    background-color: #00458f;
+}
+
+.btn_show i {
+    margin-right: 5px;
+}
+
+.table_data_content, thead, th, td{
+    border-collapse: collapse;
+}
+
+.table_data_content {
+    width: 100%;
+}
+
+.table_data_content thead{
+    background-color: #929285;
+}
+
+.table_data_content thead tr th{
+    padding: 15px;
+}
+
+.table_data_content tbody tr {
+    border-bottom: 1px solid #545F71;
+}
+
+.table_data_content tbody tr td {
+    font-family: 'Inter', Sans-Serif;
+    font-size: 16px;
+    color: #545F71;
+    padding: 15px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.table-title {
+    font-family: 'Roboto', Sans-Serif;
+    font-size: 22px;
+    color: #FFF;
+    font-weight: 800;
+}
+
+.button_action {
+    font-family: 'Inter', Sans-Serif;
+    font-size: 14px;
+    color: #e2e2e2;
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 0 4px 0 4px;
+}
+
+.red {
+    background-color: #F23939;
+}
+
+.green {
+    background-color: #1B8842;
+}
+
+.blue {
+    background-color: #007bff;
 }

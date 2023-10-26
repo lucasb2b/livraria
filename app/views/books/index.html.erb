@@ -43,30 +43,36 @@
     </nav>
   </aside>
   <main>
-    <h2>Cadastro de Livros</h2>
+    <h2>Verificar Livros</h2>
 
-    <div id="form_book">
-      <div>
-        <% flash.each do |key,value| %>
-          <div class="alert alert-<%= key %>">
-            <%= value %>
-          </div>
-        <% end %>
+    <div class="table_information">
+      <div class="table_data">
+        <table class="table_data_content">
+          <thead>
+            <tr>
+              <th colspan="3" class="text-left table-title">
+                Gerenciar Livros
+              </th>
+              <th colspan="2" style="text-align: right">
+                <%= link_to 'Adicionar Livro', dashboard_book_path, class: 'button_action green' %>
+                <%= link_to 'Editar', dashboard_assembly_path, class: 'button_action blue' %>
+                <%= link_to 'Apagar', dashboard_assembly_path, class: 'button_action red' %>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @books.each do |book| %>
+              <tr>
+                <td style="text-align: center"><%= check_box_tag 'book_ids[]', book.id %></td>
+                <td><%= book.title %></td>
+                <td><%= book.published_at %></td>
+                <td><%= book.author.name %></td>
+                <td><%= book.isbn %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
-      <%= form_for(:book, url: create_book_path, method: :post) do |f| %>
-        <%= f.label :title, "Título do livro" %>
-        <%= f.text_field :title, id: "title", required: "true" %>
-        <%= f.label :published_at, "Data de publicação" %>
-        <%= f.date_field :published_at %>
-        <%= f.label :isbn, "ISBN do livro" %>
-        <%= f.text_field :isbn, id: "isbn", required: "true" %>
-        <%= f.label :author_id, "Autor" %>
-        <%= f.collection_select :author_id, Author.all, :id, :name, prompt: "Selecione um autor" %>
-        <%= button_tag(type: 'submit') do %>
-          <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
-        <% end %>
-      <% end %>
-      <%= link_to show_books_path, class: "btn_show" do %><i class='bx bxs-book-open'></i>&nbsp;Listar Livros<% end %>
     </div>
   </main>
 </div>
