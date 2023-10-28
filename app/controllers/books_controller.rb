@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :require_login, :set_book, only: [:show, :edit, :update, :destroy]
+  before_action  :require_login, :set_book, only: [:show, :edit, :update, :destroy]
 
 
   def index
@@ -28,9 +28,11 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
+    @user = current_user
   end
 
   def update
+    @user = current_user
     @book = Book.find(params[:id])
     if @book.update(book_params)
       flash[:notice] = "Os dados do livro foram atualizados com sucesso!"
@@ -58,4 +60,5 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:author_id, :published_at, :isbn, :title)
   end
+
 end
