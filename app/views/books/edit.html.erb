@@ -53,7 +53,7 @@
           </div>
         <% end %>
       </div>
-      <%= form_for(:book, url: edit_books_path, method: :patch) do |f| %>
+      <%= form_for(:book, url: update_books_path, method: :patch) do |f| %>
         <%= f.label :title, "Título do livro" %>
         <%= f.text_field :title, id: "title", required: "true" %>
         <%= f.label :published_at, "Data de publicação" %>
@@ -63,7 +63,7 @@
         <%= f.label :author_id, "Autor" %>
         <%= f.collection_select :author_id, Author.all, :id, :name, prompt: "Selecione um autor" %>
         <%= button_tag(type: 'submit') do %>
-          <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
+          <i class='bx bxs-plus-circle'></i> &nbsp; Editar Livro
         <% end %>
       <% end %>
       <%= link_to show_books_path, class: "btn_show" do %><i class='bx bxs-book-open'></i>&nbsp;Listar Livros<% end %>

@@ -25,10 +25,16 @@ Rails.application.routes.draw do
 
   # Author
   post '/dashboard/author/', to: 'authors#create', as: 'create_author'
+
   # Book
   post '/dashboard/book/', to: 'books#create', as: 'create_book'
+
   get '/dashboard/book/all', to: 'books#index', as: 'show_books'
+
   get '/dashboard/book/:id/edit', to: 'books#edit', as: 'edit_books'
+
+  patch '/dashboard/book/:id', to: 'books#update', as: 'update_books'
+
   # Supplier
   post '/dashboard/supplier/', to: 'suppliers#create', as: 'create_supplier'
   # Account
