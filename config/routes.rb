@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   patch '/dashboard/book/:id', to: 'books#update', as: 'update_books'
 
+  delete '/dashboard/book/delete_books_multiple', to: 'books#destroy_multiple', as: 'delete_books_multiple'
+
   # Supplier
   post '/dashboard/supplier/', to: 'suppliers#create', as: 'create_supplier'
   # Account

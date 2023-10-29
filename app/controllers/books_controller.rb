@@ -51,6 +51,16 @@ class BooksController < ApplicationController
     redirect_to dashboard_book_path
   end
 
+  def destroy_multiple
+    selected_ids = params[:selected_ids]
+    # Itera sobre os IDs e exclui cada registro
+    selected_ids.each do |id|
+      book = Book.find(id)
+      book.destroy
+    end
+    head :no_content
+  end
+
   private
 
   def set_book

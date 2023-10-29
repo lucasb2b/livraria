@@ -56,7 +56,7 @@
               <th colspan="2" style="text-align: right">
                 <%= link_to 'Adicionar Livro', dashboard_book_path, class: 'button_action green' %>
                 <%= link_to 'Editar', '#', class: 'button_action blue',  id: 'edit-selected-button'%>
-                <%= link_to 'Apagar', dashboard_assembly_path, class: 'button_action red' %>
+                <%= link_to 'Apagar', '#', class: 'button_action red', id: 'delete-selected-button' %>
               </th>
             </tr>
           </thead>
@@ -91,6 +91,48 @@
                 $(window).attr("location", parseInt(selectedIds) + "/edit");
             } else {
                 alert('Por favor, selecione pelo menos um registro para editar.');
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteSelectedButton = document.getElementById('delete-selected-button');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        deleteSelectedButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Captura todos os checkboxes marcados
+            const selectedCheckboxes = document.querySelectorAll('input[name="book_ids[]"]:checked');
+            const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+
+            // Verifica se pelo menos um checkbox foi marcado
+            if (selectedIds.length > 0) {
+                // Envia os IDs dos registros para a rota personalizada usando AJAX com o método DELETE
+                fetch('<%= delete_books_multiple_path %>', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken, // Inclua o token CSRF no cabeçalho da requisição
+                    },
+                    body: JSON.stringify({ selected_ids: selectedIds }) // Passa os IDs no corpo da requisição
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Lógica de manipulação de resposta do servidor se necessário
+                            console.log('Registros excluídos com sucesso.');
+                        } else {
+                            // Lógica de tratamento de erro, se necessário
+                            console.error('Erro ao excluir registros.');
+                        }
+                    })
+                    .catch(error => {
+                        // Lógica para lidar com erros, se necessário
+                        console.error(error);
+                    });
+            } else {
+                alert('Por favor, selecione pelo menos um registro para excluir.');
             }
         });
     });
