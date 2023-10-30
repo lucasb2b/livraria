@@ -1,8 +1,9 @@
 class AuthorsController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_author, only: [:show, :edit, :update, :destroy]
 
   def index
     @authors = Author.all
+    @user = current_user
   end
   def show
     @author = Author.find(params[:id])
@@ -12,12 +13,17 @@ class AuthorsController < ApplicationController
   end
   def edit
     @author = Author.find(params[:id])
+    @user = current_user
   end
   def update
-    author = Author.find(params[:id])
-    author.update(author_params)
-
-    redirect_to dashboard_author_path
+    @user = current_user
+    @author = Author.find(params[:id])
+    if @author.update(author_params)
+      redirect_to show_authors_path, notice: "Os dados do autor foram atualizados com sucesso!"
+    else
+      flash[:error] = "Houve um erro ao processar a solicitação!"
+      redirect_to show_authors_path
+    end
   end
   def create
     author = Author.new(author_params)
@@ -31,14 +37,39 @@ class AuthorsController < ApplicationController
     end
   end
   def destroy
-    author = Author.find(params[:id])
-    author.destroy
-    redirect_to dashboard_author_path
+    selected_ids = params[:selected_ids]
+    # Itera sobre os IDs e exclui cada registro
+    selected_ids.each do |id|
+      author = Author.find(id)
+      count = Author.find(id).books.count
+      if count > 0
+        flash[:error] = "Este autor contém livros cadastrados! Exclua os livros do autor primeiro!"
+        redirect_to show_authors_path
+      else
+        author.destroy
+        flash[:success] = "Autor excluído com sucesso!"
+        redirect_to show_authors_path
+      end
+    end
+  end
+
+  def custom_destroy
+    selected_ids = params[:selected_ids]
+    # Itera sobre os IDs e exclui cada registro
+    selected_ids.each do |id|
+      author = Author.find(id)
+      author.destroy
+    end
+    render json: { message: 'Registros excluídos com sucesso' }, status: :ok
   end
 
   private
 
   def author_params
     params.require(:author).permit(:name, :cpf)
+  end
+
+  def set_author
+    @author = Author.find(params[:id])
   end
 end

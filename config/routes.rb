@@ -26,6 +26,14 @@ Rails.application.routes.draw do
   # Author
   post '/dashboard/author/', to: 'authors#create', as: 'create_author'
 
+  get '/dashboard/author/all', to: 'authors#index', as: 'show_authors'
+
+  get '/dashboard/author/:id/edit', to: 'authors#edit', as: 'edit_authors'
+
+  patch '/dashboard/author/:id', to: 'authors#update', as: 'update_authors'
+
+  delete '/dashboard/author/destroy_author', to: 'authors#custom_destroy', as: 'destroy_authors'
+
   # Book
   post '/dashboard/book/', to: 'books#create', as: 'create_book'
 

@@ -43,7 +43,7 @@
     </nav>
   </aside>
   <main>
-    <h2>Cadastro de Autores de Livros</h2>
+    <h2>Editar Autor</h2>
     <div id="form_book">
       <div>
         <% flash.each do |key, value| %>
@@ -52,13 +52,13 @@
           </div>
         <% end %>
       </div>
-      <%= form_for(:author, url: create_author_path, method: :post) do |form| %>
+      <%= form_for(:author, url: update_authors_path, method: :patch) do |form| %>
         <%= form.label :name, "Nome do Autor:" %>
         <%= form.text_field :name, id: "name", required: "true" %>
         <%= form.label :cpf, "CPF:" %>
         <%= form.text_field :cpf, id: "cpf", required: "true" %>
         <%= button_tag(type: 'submit') do %>
-          <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
+          <i class='bx bxs-plus-circle'></i> &nbsp; Editar Autor
         <% end %>
       <% end %>
       <%= link_to show_authors_path, class: "btn_show" do %><i class='bx bxs-user-rectangle'></i>&nbsp;Listar Autores<% end %>
