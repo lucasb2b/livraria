@@ -55,12 +55,26 @@ class AuthorsController < ApplicationController
 
   def custom_destroy
     selected_ids = params[:selected_ids]
-    # Itera sobre os IDs e exclui cada registro
+    errors = []
+
+    # Itera sobre os IDs e tenta excluir cada autor
     selected_ids.each do |id|
-      author = Author.find(id)
-      author.destroy
+      author = Author.find_by(id: id)
+
+      if author && author.books.any?
+        errors << "Autor '#{author.name}' tem livros vinculados e não pode ser excluído."
+      elsif author
+        author.destroy
+      else
+        errors << "Autor com ID '#{id}' não encontrado."
+      end
     end
-    render json: { message: 'Registros excluídos com sucesso' }, status: :ok
+
+    if errors.any?
+      render json: {errors: errors}, status: :unprocessable_entity
+    else
+      render json: {message: 'Registros excluídos com sucesso!'}, status: :ok
+    end
   end
 
   private
