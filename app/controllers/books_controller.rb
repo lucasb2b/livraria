@@ -58,7 +58,7 @@ class BooksController < ApplicationController
       book = Book.find(id)
       book.destroy
     end
-    head :no_content
+    render json: {message: 'Registro excluídos com sucesso'}, status: :ok
   end
 
   private
