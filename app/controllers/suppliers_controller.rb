@@ -3,6 +3,7 @@ class SuppliersController < ApplicationController
 
   def index
     @suppliers = Supplier.all
+    @user = current_user
   end
   def show
   end

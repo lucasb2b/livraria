@@ -47,6 +47,9 @@ Rails.application.routes.draw do
 
   # Supplier
   post '/dashboard/supplier/', to: 'suppliers#create', as: 'create_supplier'
+
+  get '/dashboard/supplier/all', to: 'suppliers#index', as: 'show_suppliers'
+
   # Account
   post '/dashboard/account/', to: 'accounts#create', as: 'create_account'
   # Part
