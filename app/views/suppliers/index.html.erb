@@ -73,7 +73,7 @@
               Gerenciar Forncedores
             </th>
             <th colspan="2" style="text-align: right">
-              <%= link_to 'Adicionar Autor', dashboard_author_path, class: 'button_action green' %>
+              <%= link_to 'Adicionar Forncedor', dashboard_supplier_path, class: 'button_action green' %>
               <%= link_to 'Editar', '#', class: 'button_action blue', id: 'edit-selected-button' %>
               <%= link_to 'Apagar', '#', class: 'button_action red', id: 'delete-selected-button', 'data-turbolinks': 'false' %>
             </th>
@@ -104,7 +104,7 @@
             e.preventDefault();
 
             // Captura IDs dos checkboxes selecionados
-            var selectedIds = $('input[name="author_ids[]"]:checked').map(function () {
+            var selectedIds = $('input[name="supplier_ids[]"]:checked').map(function () {
                 return $(this).val();
             }).get();
 
@@ -125,7 +125,7 @@
             e.preventDefault();
 
             // Captura todos os checkboxes marcados
-            const selectedCheckboxes = $('input[name="author_ids[]"]:checked');
+            const selectedCheckboxes = $('input[name="supplier_ids[]"]:checked');
             const selectedIds = selectedCheckboxes.map(function () {
                 return $(this).val();
             }).get();
@@ -134,7 +134,7 @@
             if (selectedIds.length > 0) {
                 // Envia os IDs dos registros para a rota personalizada usando AJAX com o método DELETE
                 $.ajax({
-                    url: '<%= destroy_authors_path %>',
+                    url: '<%= destroy_suppliers_path %>',
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',

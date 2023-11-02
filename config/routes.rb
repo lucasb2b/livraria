@@ -50,6 +50,12 @@ Rails.application.routes.draw do
 
   get '/dashboard/supplier/all', to: 'suppliers#index', as: 'show_suppliers'
 
+  get '/dashboard/supplier/:id/edit', to: 'suppliers#edit', as: 'edit_suppliers'
+
+  patch '/dashboard/supplier/:id', to: 'suppliers#update', as: 'update_suppliers'
+
+  delete '/dashboard/supplier/delete_suppliers', to: 'suppliers#new_destroy', as: 'destroy_suppliers'
+
   # Account
   post '/dashboard/account/', to: 'accounts#create', as: 'create_account'
   # Part
