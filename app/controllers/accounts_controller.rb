@@ -3,6 +3,7 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = Account.all
+    @user = current_user
   end
 
   def show
@@ -26,11 +27,12 @@ class AccountsController < ApplicationController
 
   def edit
     @account = Account.find(params[:id])
+    @user = current_user
   end
 
   def update
     @account = Account.find(params[:id])
-    if @account.update(book_params)
+    if @account.update(account_params)
       flash[:notice] = "Dados da conta atualizados com sucesso!"
       redirect_to dashboard_account_path
     else
@@ -44,6 +46,16 @@ class AccountsController < ApplicationController
     @account.destroy
     flash[:notice] = "Conta apagada com sucesso."
     redirect_to dashboard_account_path
+  end
+
+  def destroy_ajax
+    selected_ids = params[:selected_ids]
+    # Itera sobre os IDs e exclui cada registro
+    selected_ids.each do |id|
+      account = Account.find(id)
+      account.destroy
+    end
+    render json: {message: 'Registro excluído com sucesso'}, status: :ok
   end
 
   private

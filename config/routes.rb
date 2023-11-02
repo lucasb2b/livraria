@@ -58,6 +58,15 @@ Rails.application.routes.draw do
 
   # Account
   post '/dashboard/account/', to: 'accounts#create', as: 'create_account'
+
+  get '/dashboard/account/all', to: 'accounts#index', as: 'show_accounts'
+
+  get '/dashboard/account/:id/edit', to: 'accounts#edit', as: 'edit_accounts'
+
+  patch '/dashboard/account/:id', to: 'accounts#update', as: 'update_accounts'
+
+  delete '/dashboard/account/delete_accounts', to: 'accounts#destroy_ajax', as: 'destroy_accounts'
+
   # Part
   post '/dashboard/part/', to: 'parts#create', as: 'create_part'
   # Assembly
