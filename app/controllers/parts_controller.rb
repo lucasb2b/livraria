@@ -3,6 +3,8 @@ class PartsController < ApplicationController
 
   def index
     @parts = Part.all
+    @assemblies = Assembly.all
+    @user = current_user
   end
 
   def show

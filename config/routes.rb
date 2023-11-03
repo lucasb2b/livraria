@@ -69,6 +69,9 @@ Rails.application.routes.draw do
 
   # Part
   post '/dashboard/part/', to: 'parts#create', as: 'create_part'
+
+  get '/dashboard/part/all', to: 'parts#index', as: 'show_parts'
+
   # Assembly
   post '/dashboard/assembly/', to: 'assemblies#create', as: 'create_assembly'
   # AssemblyParts

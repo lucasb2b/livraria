@@ -1,0 +1,170 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag 'views/dashboard/dashboard' %>
+<% end %>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Dashboard Joia do Saber</title>
+</head>
+<body>
+<header class="header3">
+  <div id="logo">Joia do Saber</div>
+  <div id="username">
+    <i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;"><%= @current_user.name %>&nbsp;</strong>
+    <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer">
+      <div class="dropdown_menu" style="display: none">
+        <ul>Sair</ul>
+      </div>
+    </i>
+  </div>
+</header>
+<div id="content">
+  <aside>
+    <div id="profile">
+      <div>
+        <i class='bx bxs-user-circle' style="font-size: 4.6875rem; color: #424F3C"></i>
+      </div>
+      <div>
+        <h4 id="uuser"><%= @current_user.name %></h4>
+        <strong><b>&#9679;</b> Online</strong>
+      </div>
+    </div>
+
+    <h5>Gerenciar</h5>
+
+    <nav class="nav_dashboard">
+      <ul>
+        <li><%= link_to dashboard_path do %><i class='bx bx-home'></i>&nbsp;Home
+          <% end %></li>
+        <li><%= link_to dashboard_book_path do %><i class='bx bx-book'></i>&nbsp;Gerenciar Livros
+          <% end %></li>
+        <li><%= link_to dashboard_author_path do %><i class='bx bx-user-circle'></i>&nbsp;Gerenciar Autores
+          <% end %></li>
+        <li><%= link_to dashboard_supplier_path do %><i class='bx bx-wrench'></i>&nbsp;Gerenciar Fornecedores
+          <% end %></li>
+        <li><%= link_to dashboard_account_path do %><i class='bx bx-wallet'></i>&nbsp;Contas de Fornecedores
+          <% end %></li>
+        <li><%= link_to dashboard_part_path do %><i class='bx bx-cog'></i>&nbsp;Gerenciar Peças
+          <% end %></li>
+        <li><%= link_to dashboard_assembly_path do %><i class='bx bx-layer'></i>&nbsp;Montagens
+          <% end %></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <h2>Verificar Peças</h2>
+    <div class="table_information">
+      <div id="info-msg">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+      </div>
+      <div class="table_data">
+        <table class="table_data_content">
+          <thead>
+          <tr>
+            <th colspan="3" class="text-left table-title">
+              Gerenciar Peças
+            </th>
+            <th colspan="2" style="text-align: right">
+              <%= link_to 'Adicionar Peça', dashboard_part_path, class: 'button_action green' %>
+              <%= link_to 'Editar', '#', class: 'button_action blue', id: 'edit-selected-button' %>
+              <%= link_to 'Apagar', '#', class: 'button_action red', id: 'delete-selected-button' %>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="table-header">
+            <td></td>
+            <td>Peça</td>
+            <td>Part Number</td>
+            <td>Está em montagem?</td>
+            <td>Quantas montagens</td>
+          </tr>
+          <% @parts.each do |part| %>
+            <tr>
+              <td style="text-align: center"><%= check_box_tag 'part_ids[]', part.id, false, class: 'check_id' %></td>
+              <td><%= part.name %></td>
+              <td><%= part.part_number %></td>
+              <td><%= part.assemblies.any? ? 'Sim' : 'Não' %></td>
+              <td><%= Part.joins(:assemblies).where(parts: { id: part.id }).distinct.count('assemblies.id') %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#edit-selected-button').on('click', function (e) {
+            e.preventDefault();
+
+            // Captura IDs dos checkboxes selecionados
+            var selectedIds = $('input[name="book_ids[]"]:checked').map(function () {
+                return $(this).val();
+            }).get();
+
+            // Redireciona para a página de edição com os IDs como parâmetros
+            if (selectedIds.length > 0) {
+                $(window).attr("location", parseInt(selectedIds) + "/edit");
+            } else {
+                alert('Por favor, selecione pelo menos um registro para editar.');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        const deleteSelectedButton = $('#delete-selected-button');
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        deleteSelectedButton.on('click', function (e) {
+            e.preventDefault();
+
+            // Captura todos os checkboxes marcados
+            const selectedCheckboxes = $('input[name="book_ids[]"]:checked');
+            const selectedIds = selectedCheckboxes.map(function () {
+                return $(this).val();
+            }).get();
+
+            // Verifica se pelo menos um checkbox foi marcado
+            if (selectedIds.length > 0) {
+                // Envia os IDs dos registros para a rota personalizada usando AJAX com o método DELETE
+                $.ajax({
+                    url: '<%= delete_books_multiple_path %>',
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken // Inclua o token CSRF no cabeçalho da requisição
+                    },
+                    data: JSON.stringify({selected_ids: selectedIds}), // Passa os IDs no corpo da requisição
+                    success: function (response) {
+                        // Lógica de manipulação de resposta do servidor se necessário
+                        console.log('Registros excluídos com sucesso.');
+                        console.log(response.message);
+
+                        var msgDeleted = document.getElementById('info-msg');
+                        msgDeleted.textContent = response.message;
+
+                        selectedCheckboxes.closest('tr').remove();
+                    },
+                    error: function (xhr, status, error) {
+                        // Lógica de tratamento de erro, se necessário
+                        console.error('Erro ao excluir registros.');
+                        console.error(error);
+                    }
+                });
+            } else {
+                alert('Por favor, selecione pelo menos um registro para excluir.');
+            }
+        });
+    });
+</script>
+</body>
+</html>
