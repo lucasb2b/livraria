@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # User
+  get '/users/new'
+  post '/users/create', to: "users#create", as: "create_user"
+
   # Dashboard
   get '/dashboard', to: 'dashboard#show'
   get '/dashboard/author', to: 'dashboard#author'
