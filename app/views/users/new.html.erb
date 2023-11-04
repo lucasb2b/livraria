@@ -33,11 +33,15 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('form').submit(function(e) {
-            const username = $("#username").val();
-            const email = $("#email").val();
-            const password = $("#password").val();
-            const password_confirmation = $("#password_confirmation").val();
             const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            var user = {
+                name : $("#username").val(),
+                email : $("#email").val(),
+                password : $("#password").val(),
+                password_confirmation : $("#password_confirmation").val()
+            }
+
 
             e.preventDefault();
 
@@ -48,7 +52,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRF-Token': csrfToken
                 },
-                data: JSON.stringify({name: username}, {email: email}, {password: password}, {password_confirmation: password_confirmation}),
+                data: JSON.stringify({user: user}),
                 success: function(data){
                     console.log("deu certo" + data)
                 },
