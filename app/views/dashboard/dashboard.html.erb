@@ -13,7 +13,12 @@
 <header class="header3">
   <div id="logo">Joia do Saber</div>
   <div id="username">
-    <i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;"><%= @current_user.name %>&nbsp;</strong> <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer"><div class="dropdown_menu" style="display: none"><ul>Sair</ul></div></i>
+    <i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;"><%= @current_user.name %>&nbsp;</strong>
+    <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer">
+      <div class="dropdown_menu" style="display: none">
+        <ul>Sair</ul>
+      </div>
+    </i>
   </div>
 </header>
 <div id="content">
@@ -32,13 +37,20 @@
 
     <nav class="nav_dashboard">
       <ul>
-        <li><%= link_to dashboard_path do %><i class='bx bx-home'></i>&nbsp;Home<% end %></li>
-        <li><%= link_to dashboard_book_path do %><i class='bx bx-book'></i>&nbsp;Gerenciar Livros<% end %></li>
-        <li><%= link_to dashboard_author_path do %><i class='bx bx-user-circle' ></i>&nbsp;Gerenciar Autores<% end %></li>
-        <li><%= link_to dashboard_supplier_path do %><i class='bx bx-wrench'></i>&nbsp;Gerenciar Fornecedores<% end %></li>
-        <li><%= link_to dashboard_account_path do %><i class='bx bx-wallet'></i>&nbsp;Contas de Fornecedores<% end %></li>
-        <li><%= link_to dashboard_part_path do %><i class='bx bx-cog' ></i>&nbsp;Gerenciar Peças<% end %></li>
-        <li><%= link_to dashboard_assembly_path do %><i class='bx bx-layer'></i>&nbsp;Montagens<% end %></li>
+        <li><%= link_to dashboard_path do %><i class='bx bx-home'></i>&nbsp;Home
+          <% end %></li>
+        <li><%= link_to dashboard_book_path do %><i class='bx bx-book'></i>&nbsp;Gerenciar Livros
+          <% end %></li>
+        <li><%= link_to dashboard_author_path do %><i class='bx bx-user-circle'></i>&nbsp;Gerenciar Autores
+          <% end %></li>
+        <li><%= link_to dashboard_supplier_path do %><i class='bx bx-wrench'></i>&nbsp;Gerenciar Fornecedores
+          <% end %></li>
+        <li><%= link_to dashboard_account_path do %><i class='bx bx-wallet'></i>&nbsp;Contas de Fornecedores
+          <% end %></li>
+        <li><%= link_to dashboard_part_path do %><i class='bx bx-cog'></i>&nbsp;Gerenciar Peças
+          <% end %></li>
+        <li><%= link_to dashboard_assembly_path do %><i class='bx bx-layer'></i>&nbsp;Montagens
+          <% end %></li>
       </ul>
     </nav>
   </aside>
@@ -46,19 +58,38 @@
     <h2>Área administrativa</h2>
     <div class="information">
       <h1>Seja bem vindo <strong><%= @current_user.name %></strong></h1>
-      <div class="warning"><p>Clique no botão ao lado para sair e voltar a home page. &#10140;</p><%= button_to sign_out_sessions_path, method: :delete, class: 'dash_button' do %><i class='bx bxs-door-open'></i>&nbsp;Sair Do Dashboard<% end %></div>
+      <div class="warning"><p>Clique no botão ao lado para sair e voltar a home
+        page. &#10140;</p><%= button_to sign_out_sessions_path, method: :delete, class: 'dash_button' do %>
+          <i class='bx bxs-door-open'></i>&nbsp;Sair Do Dashboard
+        <% end %></div>
       <hr>
-      <div class="change_data">
-        <h2>Alterar a senha da conta</h2>
-        <form>
-          <label>Senha Atual:</label>
-          <input type="password" />
-          <label>Nova Senha:</label>
-          <input type="password" />
-          <label>Confirmar Senha:</label>
-          <input type="password" />
-          <button type="submit"><i class='bx bxs-edit-alt'></i>&nbsp;Trocar Senha</button>
-        </form>
+      <div clas="medo">
+        <div id="form_book">
+          <div>
+            <% flash.each do |key, value| %>
+              <div class="alert alert-<%= key %>">
+                <%= value %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="change_data">
+          <h2>Alterar a senha da conta</h2>
+          <%= form_for(@current_user, url: change_password_path(@current_user), method: :patch) do |f| %>
+            <%= f.label :password, "Senha Atual:" %>
+            <%= f.password_field :password, required: "true" %>
+
+            <%= f.label :password_confirmation, "Nova Senha:" %>
+            <%= password_field_tag 'password_confirmation', '', required: 'true'%>
+
+            <%= f.label :password_confirmation_confirmation, "Confirmar nova senha:" %>
+            <%= password_field_tag 'password_confirmation_confirmation', '', required: 'true'%>
+
+            <%= button_tag(type: 'submit') do %>
+              <i class='bx bxs-edit-alt'></i> &nbsp; Alterar Senha
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </main>

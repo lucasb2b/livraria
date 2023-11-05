@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:user][:password])
       reset_session
       session[:user_id] = user.id
-      redirect_to dashboard_path, notice: "olá amigo!"
+      redirect_to dashboard_path
     else
       redirect_to sessions_path, alert: "Credenciais erradas"
     end

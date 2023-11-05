@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   # User
   get '/users/new'
   post '/users/create', to: "users#create", as: "create_user"
+  patch '/users/update/:id', to: "users#change_password", as: "change_password"
+
 
   # Dashboard
   get '/dashboard', to: 'dashboard#show'
