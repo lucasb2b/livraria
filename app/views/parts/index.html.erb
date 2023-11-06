@@ -68,7 +68,7 @@
         <table class="table_data_content">
           <thead>
           <tr>
-            <th colspan="3" class="text-left table-title">
+            <th colspan="4" class="text-left table-title">
               Gerenciar Peças
             </th>
             <th colspan="2" style="text-align: right">
@@ -83,6 +83,7 @@
             <td></td>
             <td>Peça</td>
             <td>Part Number</td>
+            <td>Descrição</td>
             <td>Está em montagem?</td>
             <td>Quantas montagens</td>
           </tr>
@@ -91,6 +92,11 @@
               <td style="text-align: center"><%= check_box_tag 'part_ids[]', part.id, false, class: 'check_id' %></td>
               <td><%= part.name %></td>
               <td><%= part.part_number %></td>
+              <% if part.description.present? %>
+              <td><%= truncate(part.description, length: 10, omission: '...') %></td>
+              <% else %>
+              <td>-</td>
+              <% end %>
               <td><%= part.assemblies.any? ? 'Sim' : 'Não' %></td>
               <td><%= Part.joins(:assemblies).where(parts: { id: part.id }).distinct.count('assemblies.id') %></td>
             </tr>
@@ -107,7 +113,7 @@
             e.preventDefault();
 
             // Captura IDs dos checkboxes selecionados
-            var selectedIds = $('input[name="book_ids[]"]:checked').map(function () {
+            var selectedIds = $('input[name="part_ids[]"]:checked').map(function () {
                 return $(this).val();
             }).get();
 
@@ -128,7 +134,7 @@
             e.preventDefault();
 
             // Captura todos os checkboxes marcados
-            const selectedCheckboxes = $('input[name="book_ids[]"]:checked');
+            const selectedCheckboxes = $('input[name="part_ids[]"]:checked');
             const selectedIds = selectedCheckboxes.map(function () {
                 return $(this).val();
             }).get();
@@ -137,7 +143,7 @@
             if (selectedIds.length > 0) {
                 // Envia os IDs dos registros para a rota personalizada usando AJAX com o método DELETE
                 $.ajax({
-                    url: '<%= delete_books_multiple_path %>',
+                    url: '<%= destroy_parts_path %>',
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -151,13 +157,26 @@
 
                         var msgDeleted = document.getElementById('info-msg');
                         msgDeleted.textContent = response.message;
-
                         selectedCheckboxes.closest('tr').remove();
+
+                        setTimeout(function () {
+                            document.getElementById('info-msg').innerHTML = '';
+                        }, 1000)
                     },
                     error: function (xhr, status, error) {
                         // Lógica de tratamento de erro, se necessário
-                        console.error('Erro ao excluir registros.');
+                        console.error(xhr);
                         console.error(error);
+                        var msgErrors = xhr.responseJSON.errors.map(function(text) {
+                            return '<p>' + text + '</p>';
+                        });
+                        var content = msgErrors.join('');
+                        var divInfo = $('#info-msg');
+                        divInfo.html(content);
+
+                        divInfo.animate({ opacity: 0}, 2000, function (){
+                            divInfo.empty().css('opacity', 1).show();
+                        });
                     }
                 });
             } else {

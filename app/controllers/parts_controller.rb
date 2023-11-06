@@ -2,7 +2,7 @@ class PartsController < ApplicationController
   before_action :set_part, only: [:show, :edit, :update, :destroy]
 
   def index
-    @parts = Part.all
+    @parts = Part.all.order(:id)
     @assemblies = Assembly.all
     @user = current_user
   end
@@ -29,6 +29,7 @@ class PartsController < ApplicationController
   end
 
   def edit
+    @user = current_user
     @part = Part.find(params[:id])
   end
 
@@ -45,11 +46,41 @@ class PartsController < ApplicationController
   end
 
   def destroy
-    @part = Part.find(params[:id])
-    @part.destroy
-    params[:id] = nil
-    flash[:notice] = "Peça apagada com sucesso!"
-    redirect_to dashboard_part_path
+    selected_ids = params[:selected_ids]
+
+    selected_ids.each do |id|
+      part = Part.find_by(id: id)
+      if part.assemblies.empty?
+        part.destroy
+        flash[:success] = "Peça apagada com sucesso!"
+        redirect_to create_part_path
+      else
+        flash[:error] = "Essa peça está inclusa em algumas montagens, primeiro tire da montagem"
+        redirect_to create_part_path
+      end
+    end
+  end
+
+  def custom_destroy
+    selected_ids = params[:selected_ids]
+    errors = []
+
+    #itera sobre os IDs de cada part e tenta excluir cada uma
+    selected_ids.each do |id|
+      part = Part.find_by(id: id)
+
+      if part && part.assemblies.empty?
+        part.destroy
+      else
+        errors << "A peça: ' #{part.name} ' não pode ser apagada pois está inserida em montagens."
+      end
+    end
+
+    if errors.any?
+      render json: {errors: errors}, status: :unprocessable_entity
+    else
+      render json: {message: 'Registros excluídos com sucesso!'}, status: :ok
+    end
   end
 
   private
@@ -59,7 +90,7 @@ class PartsController < ApplicationController
   end
 
   def part_params
-    params.require(:part).permit(:part_number, :name)
+    params.require(:part).permit(:part_number, :name, :description)
   end
 
 end

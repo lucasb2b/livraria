@@ -78,6 +78,12 @@ Rails.application.routes.draw do
 
   get '/dashboard/part/all', to: 'parts#index', as: 'show_parts'
 
+  get '/dashboard/part/:id/edit', to: 'parts#edit', as: 'edit_parts'
+
+  patch '/dashboard/part/:id', to: 'parts#update', as: 'update_parts'
+
+  delete '/dashboard/part/delete_parts', to: 'parts#custom_destroy', as: 'destroy_parts'
+
   # Assembly
   post '/dashboard/assembly/', to: 'assemblies#create', as: 'create_assembly'
   # AssemblyParts

@@ -55,12 +55,15 @@
       <%= form_for(:part, url: create_part_path, method: :post) do |f|%>
         <%= f.label :name, "Nome da Peça:" %>
         <%= f.text_field :name, id: "name", required: "true" %>
+        <%= f.label :description, "Descrição:" %>
+        <%= f.text_field :description, id: "description", required: "true" %>
         <%= f.label :part_number, "Part Number:" %>
         <%= f.text_field :part_number, id: "part_number", required: "true" %>
         <%= button_tag(type: 'submit') do %>
           <i class="bx bxs-plus-circle"></i>&nbsp;Cadastrar
         <% end %>
       <% end %>
+      <%= link_to show_parts_path, class: "btn_show" do %><i class='bx bxs-cog'></i>&nbsp;Listar Peças<% end %>
     </div>
   </main>
 </div>

@@ -52,13 +52,15 @@
           </div>
         <% end %>
       </div>
-      <%= form_for(:part, url: create_part_path, method: :post) do |f|%>
+      <%= form_for(:part, url: update_parts_path, method: :patch) do |f|%>
         <%= f.label :name, "Nome da Peça:" %>
         <%= f.text_field :name, id: "name", required: "true" %>
+        <%= f.label :description, "Descrição:" %>
+        <%= f.text_field :description, id: "description", required: "true" %>
         <%= f.label :part_number, "Part Number:" %>
         <%= f.text_field :part_number, id: "part_number", required: "true" %>
         <%= button_tag(type: 'submit') do %>
-          <i class="bx bxs-plus-circle"></i>&nbsp;Cadastrar
+          <i class="bx bxs-plus-circle"></i>&nbsp;Editar Peça
         <% end %>
       <% end %>
     </div>
