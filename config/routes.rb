@@ -93,7 +93,7 @@ Rails.application.routes.draw do
   # AssemblyParts
   post '/dashboard/assembly_parts/', to: 'assemblies#assembly_part', as: 'create_assembly_part'
 
-  post '/dashboard/assembly/assembly_assembly', to: 'assemblies#assembly_assembly', as: 'assembly_assembly'
+  get '/dashboard/assembly/assembly_assembly', to: 'assemblies#assembly_assembly', as: 'assembly_assembly'
 
   post '/dashboard/assembly/assembly_parts', to: 'assemblies#assembly_parts', as: 'assembly_parts'
 end

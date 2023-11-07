@@ -66,28 +66,15 @@
       </div>
       <h2 style="margin-top: 0; margin-bottom: 15px; margin-left: 0; margin-right: 0; font-size: 24px">Escolha um
         processo de montagem:</h2>
-      <%= form_for(:assembly, url: assembly_assembly_path, method: :post, id: 'form_combobox') do |f| %>
-        <%= f.label "Montagem:" %>
-        <%=  collection_select(:assembly, :id, Assembly.all, :id, :name, prompt: "Por favor selecione", required: "true")%>
-        <%= button_tag(type: 'submit') do %>
-          <i class='bx bx-coin-stack'></i>&nbsp;Verificar Montagem
+      <div id="form-assembly-search">
+        <%= form_tag("#", method: :get, id: "assembly-form") do %>
+          <%= select_tag(:assembly, options_from_collection_for_select(@assemblies.all, :id, :name), prompt: "Selecione uma opção") %>
+          <%= submit_tag("Buscar peças envolvidas") %>
         <% end %>
-      <% end %>
+      </div>
 
-      <div id="parts-form">
-        <table border="1">
-          <thed>
-            <th>Peça</th>
-            <th>Descrição</th>
-            <th>Ações</th>
-          </thed>
-          <tbody>
-            <tr>
-              <td>Papel</td>
-              <td>O papel é legal</td>
-              <td>Editar | Excluir</td>
-            </tr>
-          </tbody>
+      <div id="table_data">
+        <table border="1" id="parts-table" class="table_data_content">
         </table>
       </div>
     </div>
@@ -95,8 +82,59 @@
 </div>
 
 <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function (){
+  document.addEventListener("DOMContentLoaded", function(){
+      const form = document.getElementById("assembly-form");
+      const table = document.getElementById("parts-table");
 
+      form.addEventListener("submit", function(e){
+          e.preventDefault();
+          const formData = new FormData(form);
+          const assembly = formData.get("assembly");
+
+          fetch(`/dashboard/assembly/assembly_assembly?id=${assembly}`)
+              .then(function(response){
+                  console.log(response)
+                  return response.json()
+              }).then(function(data){
+                  table.innerHTML = "";
+
+                  const headerRow = document.createElement("tr");
+                  const nameLabel = document.createElement("th");
+                  nameLabel.textContent = "Nome da Peça";
+                  const actionsLabel = document.createElement("th");
+                  actionsLabel.textContent = "Ações";
+                  headerRow.appendChild(nameLabel);
+                  headerRow.appendChild(actionsLabel);
+                  table.appendChild(headerRow);
+
+                  data.forEach(function(part){
+                      const row = document.createElement("tr");
+                      const nameCell = document.createElement("td");
+                      nameCell.textContent = part.name;
+                      const actionsCell = document.createElement("td");
+                      const deleteButton = document.createElement("button");
+                      deleteButton.textContent = "Excluir";
+
+                      deleteButton.setAttribute("data-part-id", part.id);
+                      deleteButton.setAttribute("data-assembly-id", assembly);
+
+                      deleteButton.addEventListener("click", function(){
+                          const partId = deleteButton.getAttribute("data-part-id");
+                          const assemblyId = deleteButton.getAttribute("data-assembly-id");
+
+                          console.log("ID da Peça:", partId);
+                          console.log("ID da Montagem:", assemblyId);
+                      });
+
+                      actionsCell.appendChild(deleteButton);
+                      row.appendChild(nameCell);
+                      row.appendChild(actionsCell);
+                      table.appendChild(row);
+                  });
+          }).catch(function (error){
+              console.error("Erro aqui ó:", error);
+          })
+      })
   })
 </script>
 </body>

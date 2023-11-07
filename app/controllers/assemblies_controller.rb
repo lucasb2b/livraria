@@ -22,11 +22,9 @@ class AssembliesController < ApplicationController
   end
 
   def assembly_assembly
-    selected_assembly = params[:assembly][:id]
-
+    selected_assembly = Assembly.find(params[:id].to_i)
     parts = selected_assembly.parts
-
-    redirect_to root_path(send_form: true, parts: parts)
+    render json: parts
   end
 
   def create
