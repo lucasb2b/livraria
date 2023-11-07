@@ -86,6 +86,14 @@ Rails.application.routes.draw do
 
   # Assembly
   post '/dashboard/assembly/', to: 'assemblies#create', as: 'create_assembly'
+
+  get '/dashboard/assembly/manage', to: 'assemblies#manage', as: 'manage_assemblies'
+
+
   # AssemblyParts
   post '/dashboard/assembly_parts/', to: 'assemblies#assembly_part', as: 'create_assembly_part'
+
+  post '/dashboard/assembly/assembly_assembly', to: 'assemblies#assembly_assembly', as: 'assembly_assembly'
+
+  post '/dashboard/assembly/assembly_parts', to: 'assemblies#assembly_parts', as: 'assembly_parts'
 end

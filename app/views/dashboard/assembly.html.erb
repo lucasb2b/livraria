@@ -62,8 +62,8 @@
       <br>
       <hr>
       <br>
-      <div style="border: 1px solid red">
-        <h3 class="association">Associar Montagens e Peças</h3>
+      <div>
+        <h2 style="text-align: left; margin-bottom: 5px; margin-top: 5px; margin-left: 0">Associar Montagens e Peças</h2>
         <%= form_for(:assembly, url: create_assembly_part_path, method: :post) do |f| %>
           <%= f.collection_select :ttt, Assembly.all, :id, :name %>
           <%= f.collection_select :cu, Part.all, :id, :name, prompt: "Selecione uma peça" %>
@@ -71,6 +71,8 @@
             <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
           <% end %>
         <% end %>
+        Gerenciar Montagens
+        <%= link_to "Gerenciar Montagens", manage_assemblies_path %>
       </div>
     </div>
   </main>

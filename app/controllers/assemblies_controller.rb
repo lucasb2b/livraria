@@ -15,6 +15,20 @@ class AssembliesController < ApplicationController
     @part = Part.new
   end
 
+  def manage
+    @user = current_user
+    @assemblies = Assembly.all
+    @parts = Part.all
+  end
+
+  def assembly_assembly
+    selected_assembly = params[:assembly][:id]
+
+    parts = selected_assembly.parts
+
+    redirect_to root_path(send_form: true, parts: parts)
+  end
+
   def create
     @assembly = Assembly.new(assembly_params)
 
