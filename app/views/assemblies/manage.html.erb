@@ -68,14 +68,41 @@
         processo de montagem:</h2>
       <div id="form-assembly-search">
         <%= form_tag("#", method: :get, id: "assembly-form") do %>
-          <%= select_tag(:assembly, options_from_collection_for_select(@assemblies.all, :id, :name), prompt: "Selecione uma opção") %>
-          <%= submit_tag("Buscar peças envolvidas") %>
+          <%= select_tag(:assembly, options_from_collection_for_select(@assemblies.all, :id, :name)) %>
+          <%= button_tag(type: 'submit') do %>
+            <i class='bx bx-file-find'></i> &nbsp; Buscar peças envolvidas
+          <% end %>
         <% end %>
       </div>
 
-      <div id="table_data">
-        <table border="1" id="parts-table" class="table_data_content">
+      <div id="" class="table-associations">
+        <table id="parts-table" class="parts-name-manage">
         </table>
+
+        <table class="parts-name-manage" style="display: none">
+          <tr class="table-header-part">
+            <th class="table-header-title">Nome da Peça</th>
+            <th class="table-header-title">Ações</th>
+          </tr>
+          <tr class="table-body-part">
+            <td class="table-body-content">Arame</td>
+            <td class="table-body-content"><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+          </tr>
+          <tr class="table-body-part">
+            <td class="table-body-content">Arame</td>
+            <td class="table-body-content"><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+          </tr>
+          <tr class="table-body-part">
+            <td class="table-body-content">Arame</td>
+            <td><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+          </tr>
+          <tr class="table-body-part">
+            <td class="table-body-content">Arame</td>
+            <td><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+          </tr>
+
+        </table>
+
       </div>
     </div>
   </main>
@@ -99,21 +126,30 @@
                   table.innerHTML = "";
 
                   const headerRow = document.createElement("tr");
+                  headerRow.classList.add("table-header-part");
                   const nameLabel = document.createElement("th");
                   nameLabel.textContent = "Nome da Peça";
+                  nameLabel.classList.add("table-header-title");
                   const actionsLabel = document.createElement("th");
                   actionsLabel.textContent = "Ações";
+                  actionsLabel.classList.add("table-header-title")
                   headerRow.appendChild(nameLabel);
                   headerRow.appendChild(actionsLabel);
                   table.appendChild(headerRow);
 
                   data.forEach(function(part){
                       const row = document.createElement("tr");
+                      row.classList.add("table-body-part");
                       const nameCell = document.createElement("td");
                       nameCell.textContent = part.name;
+                      nameCell.classList.add("table-body-content");
                       const actionsCell = document.createElement("td");
+                      actionsCell.classList.add("table-body-content");
                       const deleteButton = document.createElement("button");
-                      deleteButton.textContent = "Excluir";
+                      deleteButton.classList.add("disassociate");
+                      const iconElement = document.createElement("i");
+                      iconElement.className = "bx bx-cut";
+                      //deleteButton.textContent = "Desassociar";
 
                       deleteButton.setAttribute("data-part-id", part.id);
                       deleteButton.setAttribute("data-assembly-id", assembly);
@@ -125,7 +161,9 @@
                           console.log("ID da Peça:", partId);
                           console.log("ID da Montagem:", assemblyId);
                       });
-
+                      deleteButton.appendChild(iconElement);
+                      const buttonText = document.createTextNode(" Desassociar");
+                      deleteButton.appendChild(buttonText);
                       actionsCell.appendChild(deleteButton);
                       row.appendChild(nameCell);
                       row.appendChild(actionsCell);
