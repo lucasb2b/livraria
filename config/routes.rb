@@ -95,5 +95,5 @@ Rails.application.routes.draw do
 
   get '/dashboard/assembly/assembly_assembly', to: 'assemblies#assembly_assembly', as: 'assembly_assembly'
 
-  post '/dashboard/assembly/assembly_parts', to: 'assemblies#assembly_parts', as: 'assembly_parts'
+  delete '/dashboard/assembly/delete_part', to: 'assemblies#destroy_part', as: 'delete_part'
 end

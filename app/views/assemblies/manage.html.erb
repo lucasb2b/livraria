@@ -86,19 +86,27 @@
           </tr>
           <tr class="table-body-part">
             <td class="table-body-content">Arame</td>
-            <td class="table-body-content"><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+            <td class="table-body-content">
+              <button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button>
+            </td>
           </tr>
           <tr class="table-body-part">
             <td class="table-body-content">Arame</td>
-            <td class="table-body-content"><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+            <td class="table-body-content">
+              <button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button>
+            </td>
           </tr>
           <tr class="table-body-part">
             <td class="table-body-content">Arame</td>
-            <td><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+            <td>
+              <button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button>
+            </td>
           </tr>
           <tr class="table-body-part">
             <td class="table-body-content">Arame</td>
-            <td><button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button></td>
+            <td>
+              <button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Desassociar</button>
+            </td>
           </tr>
 
         </table>
@@ -109,71 +117,77 @@
 </div>
 
 <script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function(){
-      const form = document.getElementById("assembly-form");
-      const table = document.getElementById("parts-table");
+    $(document).ready(function () {
+        const form = $("#assembly-form");
+        const table = $("#parts-table");
 
-      form.addEventListener("submit", function(e){
-          e.preventDefault();
-          const formData = new FormData(form);
-          const assembly = formData.get("assembly");
+        form.on("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(form[0]);
+            const assembly = formData.get("assembly");
 
-          fetch(`/dashboard/assembly/assembly_assembly?id=${assembly}`)
-              .then(function(response){
-                  console.log(response)
-                  return response.json()
-              }).then(function(data){
-                  table.innerHTML = "";
+            $.ajax({
+                url: `/dashboard/assembly/assembly_assembly?id=${assembly}`,
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    table.empty();
 
-                  const headerRow = document.createElement("tr");
-                  headerRow.classList.add("table-header-part");
-                  const nameLabel = document.createElement("th");
-                  nameLabel.textContent = "Nome da Peça";
-                  nameLabel.classList.add("table-header-title");
-                  const actionsLabel = document.createElement("th");
-                  actionsLabel.textContent = "Ações";
-                  actionsLabel.classList.add("table-header-title")
-                  headerRow.appendChild(nameLabel);
-                  headerRow.appendChild(actionsLabel);
-                  table.appendChild(headerRow);
+                    const headerRow = $("<tr>").addClass("table-header-part");
+                    const nameLabel = $("<th>").text("Nome da Peça").addClass("table-header-title");
+                    const actionsLabel = $("<th>").text("Ações").addClass("table-header-title");
+                    headerRow.append(nameLabel, actionsLabel);
+                    table.append(headerRow);
 
-                  data.forEach(function(part){
-                      const row = document.createElement("tr");
-                      row.classList.add("table-body-part");
-                      const nameCell = document.createElement("td");
-                      nameCell.textContent = part.name;
-                      nameCell.classList.add("table-body-content");
-                      const actionsCell = document.createElement("td");
-                      actionsCell.classList.add("table-body-content");
-                      const deleteButton = document.createElement("button");
-                      deleteButton.classList.add("disassociate");
-                      const iconElement = document.createElement("i");
-                      iconElement.className = "bx bx-cut";
-                      //deleteButton.textContent = "Desassociar";
+                    $.each(data, function (index, part) {
+                        const row = $("<tr>").addClass("table-body-part");
+                        const nameCell = $("<td>").text(part.name).addClass("table-body-content");
+                        const actionsCell = $("<td>").addClass("table-body-content");
+                        const deleteButton = $("<button>").addClass("disassociate");
+                        const iconElement = $("<i>").addClass("bx bx-cut");
+                        const buttonText = $("<span>").text(" Desassociar");
+                        deleteButton.attr("data-part-id", part.id);
+                        deleteButton.attr("data-assembly-id", assembly);
 
-                      deleteButton.setAttribute("data-part-id", part.id);
-                      deleteButton.setAttribute("data-assembly-id", assembly);
+                        deleteButton.on("click", function () {
+                            const partId = deleteButton.attr("data-part-id");
+                            const assemblyId = deleteButton.attr("data-assembly-id");
+                            const tableRow = deleteButton.closest("tr"); // Seleciona a <tr> pai do botão
 
-                      deleteButton.addEventListener("click", function(){
-                          const partId = deleteButton.getAttribute("data-part-id");
-                          const assemblyId = deleteButton.getAttribute("data-assembly-id");
+                            console.log("ID da Peça:", partId);
+                            console.log("ID da Montagem:", assemblyId);
 
-                          console.log("ID da Peça:", partId);
-                          console.log("ID da Montagem:", assemblyId);
-                      });
-                      deleteButton.appendChild(iconElement);
-                      const buttonText = document.createTextNode(" Desassociar");
-                      deleteButton.appendChild(buttonText);
-                      actionsCell.appendChild(deleteButton);
-                      row.appendChild(nameCell);
-                      row.appendChild(actionsCell);
-                      table.appendChild(row);
-                  });
-          }).catch(function (error){
-              console.error("Erro aqui ó:", error);
-          })
-      })
-  })
+                            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                            $.ajax({
+                                url: `/dashboard/assembly/delete_part?id=${partId}&assembly_id=${assemblyId}`,
+                                method: "DELETE",
+                                headers: {
+                                    'X-CSRF-Token': csrfToken
+                                },
+                                success: function (response) {
+                                    console.log("Registro apagado com sucesso!");
+                                    // Remove a linha da tabela após a exclusão bem-sucedida
+                                    tableRow.remove();
+                                },
+                                error: function (error) {
+                                    console.error("Erro ao apagar o registro:", error);
+                                }
+                            });
+                        });
+
+                        deleteButton.append(iconElement, buttonText);
+                        actionsCell.append(deleteButton);
+                        row.append(nameCell, actionsCell);
+                        table.append(row);
+                    });
+                },
+                error: function (error) {
+                    console.error("Erro aqui ó:", error);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

@@ -75,6 +75,21 @@ class AssembliesController < ApplicationController
 
   end
 
+  def destroy_part
+    part_id = params[:id]
+    assembly_id = params[:assembly_id]
+
+    assembly = Assembly.find_by(id: assembly_id)
+    part = Part.find_by(id: part_id)
+
+    if assembly.parts.include?(part)
+      assembly.parts.delete(part)
+      render json: { message: "Registro apagado com sucesso!"}, status: :ok
+    else
+      render json: { message: "Houve um erro"}, status: :unprocessable_entity
+    end
+  end
+
   private
 
 
