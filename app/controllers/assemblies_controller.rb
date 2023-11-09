@@ -99,25 +99,23 @@ class AssembliesController < ApplicationController
     selected_ids = params[:selected_ids]
     errors = []
 
-    # Itera sobre os IDs e tenta excluir cada montagem(assembly)
-    selected_ids.each do |id|
-      assembly = Assembly.find_by(id: id)
+    assemblies = Assembly.where(id: selected_ids)
 
-      if assembly && assembly.parts.count != 0
-        errors << "Montagem tem peças vinculadas e não pode ser apagada"
-      elsif assembly
+    assemblies.each do |assembly|
+      if assembly.parts.count != 0
+        errors << "Montagem '#{assembly.name}' tem peças vinculadas e não pode ser apagada"
+      else
         assembly.destroy
-      else
-        errors << "Montagem não encontrada"
-      end
-
-      if errors.any?
-        render json: {errors: errors}, status: :unprocessable_entity
-      else
-        render json: {message: 'Montagem apagada com sucesso!'}, status: :ok
       end
     end
+
+    if errors.any?
+      render json: { errors: errors }, status: :unprocessable_entity
+    else
+      render json: { message: 'Montagens apagadas com sucesso!' }, status: :ok
+    end
   end
+
 
   private
 

@@ -151,9 +151,16 @@
                         selectedCheckboxes.closest('tr').remove();
                     },
                     error: function (xhr, status, error) {
-                        // Lógica de tratamento de erro, se necessário
-                        console.error('Erro ao excluir registros.');
-                        console.error(error);
+                        var msgErrors = xhr.responseJSON.errors.map(function(text) {
+                            return '<p>' + text + '</p>';
+                        });
+                        var content = msgErrors.join('');
+                        var divInfo = $('#info-msg');
+                        divInfo.html(content);
+
+                        divInfo.animate({ opacity: 0}, 2000, function (){
+                            divInfo.empty().css('opacity', 1).show();
+                        });
                     }
                 });
             } else {
