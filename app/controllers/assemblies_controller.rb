@@ -41,6 +41,7 @@ class AssembliesController < ApplicationController
 
   def edit
     @assembly = Assembly.find(params[:id])
+    @user = current_user
   end
 
   def update
@@ -72,7 +73,11 @@ class AssembliesController < ApplicationController
     @assembly.parts << @part
     flash[:success] = 'ok'
     redirect_to dashboard_assembly_path
+  end
 
+  def associate_assemblies
+    @assemblies = Assembly.all
+    @user = current_user
   end
 
   def destroy_part
@@ -90,10 +95,38 @@ class AssembliesController < ApplicationController
     end
   end
 
+  def destroy_assembly
+    selected_ids = params[:selected_ids]
+    errors = []
+
+    # Itera sobre os IDs e tenta excluir cada montagem(assembly)
+    selected_ids.each do |id|
+      assembly = Assembly.find_by(id: id)
+
+      if assembly && assembly.parts.count != 0
+        errors << "Montagem tem peças vinculadas e não pode ser apagada"
+      elsif assembly
+        assembly.destroy
+      else
+        errors << "Montagem não encontrada"
+      end
+
+      if errors.any?
+        render json: {errors: errors}, status: :unprocessable_entity
+      else
+        render json: {message: 'Montagem apagada com sucesso!'}, status: :ok
+      end
+    end
+  end
+
   private
 
 
   def assembly_params
     params.require(:assembly).permit(:id, :name)
+  end
+
+  def set_assembly
+    @assembly = Assembly.find(params[:id])
   end
 end

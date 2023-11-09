@@ -89,6 +89,13 @@ Rails.application.routes.draw do
 
   get '/dashboard/assembly/manage', to: 'assemblies#manage', as: 'manage_assemblies'
 
+  get '/dashboard/assembly/associate_assembly', to: 'assemblies#associate_assemblies', as: 'associate_assemblies'
+
+  get '/dashboard/assembly/:id/edit/', to: 'assemblies#edit', as: 'edit_assemblies'
+
+  patch '/dashboard/assembly/:id', to: 'assemblies#update', as: 'update_assemblies'
+
+  delete '/dashboard/assembly/delete_assembly', to: 'assemblies#destroy_assembly', as: 'destroy_assembly'
 
   # AssemblyParts
   post '/dashboard/assembly_parts/', to: 'assemblies#assembly_part', as: 'create_assembly_part'

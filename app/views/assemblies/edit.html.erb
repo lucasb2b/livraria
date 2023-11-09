@@ -43,7 +43,7 @@
     </nav>
   </aside>
   <main>
-    <h2>Configurar Montagens</h2>
+    <h2>Editar Montagem</h2>
     <div id="form_book">
       <div>
         <% flash.each do |key, value| %>
@@ -52,29 +52,16 @@
           </div>
         <% end %>
       </div>
-      <%= form_for(:assembly, url: create_assembly_path, method: :post) do |f| %>
+      <%= form_for(:assembly, url: update_assemblies_path, method: :patch) do |f| %>
         <%= f.label :name, "Nome da Montagem:" %>
         <%= f.text_field :name, id: "name", required: "true" %>
         <%= button_tag(type: 'submit') do %>
-          <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
+          <i class='bx bxs-plus-circle'></i> &nbsp; Editar Montagem
         <% end %>
       <% end %>
       <%= link_to associate_assemblies_path, class: "btn_show" do %><i class='bx bxs-book-open'></i>&nbsp;Gerenciar Montagens<% end %>
       <br/>
       <br/>
-      <hr>
-      <br>
-      <div>
-        <h2 style="text-align: left; margin-bottom: 5px; margin-top: 5px; margin-left: 0">Associar Montagens e Peças</h2>
-        <%= form_for(:assembly, url: create_assembly_part_path, method: :post) do |f| %>
-          <%= f.collection_select :ttt, Assembly.all, :id, :name %>
-          <%= f.collection_select :cu, Part.all, :id, :name, prompt: "Selecione uma peça" %>
-          <%= button_tag(type: 'submit') do %>
-            <i class='bx bxs-plus-circle'></i> &nbsp; Cadastrar
-          <% end %>
-        <% end %>
-        <%= link_to manage_assemblies_path, class: "btn_show" do %><i class='bx bxs-book-open'></i>&nbsp;Gerenciar Associações de Montagens<% end %>
-      </div>
     </div>
   </main>
 </div>
