@@ -57,6 +57,8 @@
         <%= f.text_field :name, id: "name", required: "true" %>
         <%= f.label :description, "Descrição:" %>
         <%= f.text_field :description, id: "description", required: "true" %>
+        <%= f.label :price, "Preço da peça:" %>
+        <%= f.number_field :price, step: 0.01 %>
         <%= f.label :part_number, "Part Number:" %>
         <%= f.text_field :part_number, id: "part_number", required: "true" %>
         <%= button_tag(type: 'submit') do %>

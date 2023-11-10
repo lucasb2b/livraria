@@ -84,8 +84,8 @@
             <td>Peça</td>
             <td>Part Number</td>
             <td>Descrição</td>
-            <td>Está em montagem?</td>
-            <td>Quantas montagens</td>
+            <td>Preço:</td>
+            <td>Está em quantas montagens?</td>
           </tr>
           <% @parts.each do |part| %>
             <tr>
@@ -93,11 +93,15 @@
               <td><%= part.name %></td>
               <td><%= part.part_number %></td>
               <% if part.description.present? %>
-              <td><%= truncate(part.description, length: 10, omission: '...') %></td>
+                <td><%= truncate(part.description, length: 10, omission: '...') %></td>
               <% else %>
-              <td>-</td>
+                <td>-</td>
               <% end %>
-              <td><%= part.assemblies.any? ? 'Sim' : 'Não' %></td>
+              <% if part.price.present? %>
+                <td><%= part.price %></td>
+              <% else %>
+                <td>-</td>
+              <% end %>
               <td><%= Part.joins(:assemblies).where(parts: { id: part.id }).distinct.count('assemblies.id') %></td>
             </tr>
           <% end %>
@@ -167,14 +171,14 @@
                         // Lógica de tratamento de erro, se necessário
                         console.error(xhr);
                         console.error(error);
-                        var msgErrors = xhr.responseJSON.errors.map(function(text) {
+                        var msgErrors = xhr.responseJSON.errors.map(function (text) {
                             return '<p>' + text + '</p>';
                         });
                         var content = msgErrors.join('');
                         var divInfo = $('#info-msg');
                         divInfo.html(content);
 
-                        divInfo.animate({ opacity: 0}, 2000, function (){
+                        divInfo.animate({opacity: 0}, 2000, function () {
                             divInfo.empty().css('opacity', 1).show();
                         });
                     }
