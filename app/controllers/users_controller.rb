@@ -57,3 +57,16 @@ class UsersController < ApplicationController
   end
 
 end
+
+# Vamos ver o que pode ser feito neste código
+# Toda vez vejo no que eu me meti ao fazer isso
+# mas é a vida né
+# Meu wakatime está marcando 58 minutos agora e estou escrevendo isso apenas para
+# passar o tempo já que faltam apenas dois minutos para completar uma hora de código continua
+# isso sem contar as pausas e como já irá bater 23 horas quero logo acabar com isso
+# para poder desligar o computador e ir dormir e sei lá, talvez assistir algum anime
+# estou carente de anime desde que dragon ball super acabou em 2018
+# era o meu passatempo favorito acordar domingo de manhã e ver as aventuras de Goku e seus amigos
+# Mas agora ando muito sem tempo para fazer isso então sinto muito a todos vocês
+# mas isso é a vida, crescer e obter responsbilidades das quais você não pediu
+# estou me esforçando para ficar acordado ouvindo city pop da Tomoko Aran

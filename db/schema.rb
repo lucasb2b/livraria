@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_10_003810) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_11_013922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_10_003810) do
   create_table "assemblies_parts", id: false, force: :cascade do |t|
     t.bigint "assembly_id"
     t.bigint "part_id"
-    t.index ["assembly_id", "part_id"], name: "index_assemblies_parts_on_assembly_id_and_part_id"
     t.index ["assembly_id"], name: "index_assemblies_parts_on_assembly_id"
     t.index ["part_id"], name: "index_assemblies_parts_on_part_id"
   end
@@ -41,6 +40,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_10_003810) do
     t.string "cpf"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "book_assemblies", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "assembly_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assembly_id"], name: "index_book_assemblies_on_assembly_id"
+    t.index ["book_id"], name: "index_book_assemblies_on_book_id"
   end
 
   create_table "books", force: :cascade do |t|
