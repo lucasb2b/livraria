@@ -1,6 +1,5 @@
 class BooksController < ApplicationController
-  before_action  :require_login, :set_book, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_login, :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
     @books = Book.all
@@ -43,6 +42,30 @@ class BooksController < ApplicationController
     end
   end
 
+  def assembly
+    @book = Book.find(params[:id])
+    @user = current_user
+
+  end
+
+  def join_to_assembly
+    @book = Book.find(params[:book][:id])
+    assembly_ids = Array(params[:book][:assembly_ids])
+
+    # Remove IDs já associados ao livro
+    assembly_ids.reject! { |id| @book.assembly_ids.include?(id.to_i) }
+
+    # Adiciona os novos IDs ao livro
+    @book.assembly_ids += assembly_ids.map(&:to_i)
+
+    if @book.save
+      flash[:success] = "Livro associado às montagens com sucesso"
+      redirect_to assembly_books_path(@book)
+    else
+      render :'assemblies/manage'
+    end
+  end
+
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
@@ -58,7 +81,7 @@ class BooksController < ApplicationController
       book = Book.find(id)
       book.destroy
     end
-    render json: {message: 'Registro excluídos com sucesso'}, status: :ok
+    render json: { message: 'Registro excluídos com sucesso' }, status: :ok
   end
 
   private

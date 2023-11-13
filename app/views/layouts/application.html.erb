@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Bookstore</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Bookstore</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <%= stylesheet_link_tag 'application', "data-turbo-track": "reload" %>
-    <%= yield :stylesheets %>
-    <%= javascript_importmap_tags %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  </head>
+  <%= stylesheet_link_tag(*Dir.glob('app/assets/stylesheets/**/*.css').map { |path| path.gsub('app/assets/stylesheets/', '').gsub('.css', '') }, media: 'all', "data-turbo-track": "reload") %>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css">
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= yield :stylesheets %>
+  <%= javascript_importmap_tags %>
+
+</head>
+
+<body>
+<%= yield %>
+</body>
 </html>

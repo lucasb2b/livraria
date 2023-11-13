@@ -47,6 +47,10 @@ Rails.application.routes.draw do
 
   get '/dashboard/book/:id/edit', to: 'books#edit', as: 'edit_books'
 
+  get '/dashboard/book/:id/assembly', to: 'books#assembly', as: 'assembly_books'
+
+  post '/dashboard/book/join_to_assembly', to: 'books#join_to_assembly', as: 'join_to_assembly'
+
   patch '/dashboard/book/:id', to: 'books#update', as: 'update_books'
 
   delete '/dashboard/book/delete_books_multiple', to: 'books#destroy_multiple', as: 'delete_books_multiple'
@@ -83,6 +87,8 @@ Rails.application.routes.draw do
   patch '/dashboard/part/:id', to: 'parts#update', as: 'update_parts'
 
   delete '/dashboard/part/delete_parts', to: 'parts#custom_destroy', as: 'destroy_parts'
+
+  get '/dashboard/assembly/parts/', to: 'parts#assembly_parts', as: 'assembly_parts'
 
   # Assembly
   post '/dashboard/assembly/', to: 'assemblies#create', as: 'create_assembly'

@@ -83,6 +83,16 @@ class PartsController < ApplicationController
     end
   end
 
+  def assembly_parts
+    @assembly_id = params[:assembly_id]
+    assembly = Assembly.find_by(id: params[:assembly_id])
+    parts = assembly.parts
+
+    respond_to do |format|
+      format.json { render json: {parts: parts}}
+    end
+  end
+
   private
 
   def set_part

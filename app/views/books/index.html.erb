@@ -68,7 +68,7 @@
         <table class="table_data_content">
           <thead>
           <tr>
-            <th colspan="4" class="text-left table-title">
+            <th colspan="4" class="text-left table-title" style="width: 60%">
               Gerenciar Livros
             </th>
             <th colspan="2" style="text-align: right">
@@ -95,7 +95,7 @@
               <td><%= book.author.name %></td>
               <td><%= book.isbn %></td>
               <td>
-                <a href="#" class="button_action blue">Gerenciar</a>
+                <%= link_to 'Gerenciar', assembly_books_path(book.id), class: 'button_action yellow' %>
               </td>
             </tr>
           <% end %>

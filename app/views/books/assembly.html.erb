@@ -1,0 +1,206 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag 'views/dashboard/dashboard' %>
+<% end %>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Dashboard Joia do Saber</title>
+</head>
+<body>
+<header class="header3">
+  <div id="logo">Joia do Saber</div>
+  <div id="username">
+    <i class='bx bxs-user-circle' style="font-size: 4.438rem; color: #413B3B; cursor: pointer"></i><strong style="cursor: pointer;"><%= @current_user.name %>&nbsp;</strong>
+    <i class='bx bxs-down-arrow' style="font-size: 12px; cursor: pointer">
+      <div class="dropdown_menu" style="display: none">
+        <ul>Sair</ul>
+      </div>
+    </i>
+  </div>
+</header>
+<div id="content">
+  <aside>
+    <div id="profile">
+      <div>
+        <i class='bx bxs-user-circle' style="font-size: 4.6875rem; color: #424F3C"></i>
+      </div>
+      <div>
+        <h4 id="uuser"><%= @current_user.name %></h4>
+        <strong><b>&#9679;</b> Online</strong>
+      </div>
+    </div>
+
+    <h5>Gerenciar</h5>
+
+    <nav class="nav_dashboard">
+      <ul>
+        <li><%= link_to dashboard_path do %><i class='bx bx-home'></i>&nbsp;Home
+          <% end %></li>
+        <li><%= link_to dashboard_book_path do %><i class='bx bx-book'></i>&nbsp;Gerenciar Livros
+          <% end %></li>
+        <li><%= link_to dashboard_author_path do %><i class='bx bx-user-circle'></i>&nbsp;Gerenciar Autores
+          <% end %></li>
+        <li><%= link_to dashboard_supplier_path do %><i class='bx bx-wrench'></i>&nbsp;Gerenciar Fornecedores
+          <% end %></li>
+        <li><%= link_to dashboard_account_path do %><i class='bx bx-wallet'></i>&nbsp;Contas de Fornecedores
+          <% end %></li>
+        <li><%= link_to dashboard_part_path do %><i class='bx bx-cog'></i>&nbsp;Gerenciar Peças
+          <% end %></li>
+        <li><%= link_to dashboard_assembly_path do %><i class='bx bx-layer'></i>&nbsp;Montagens
+          <% end %></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <h2>Montagens do Livro <b><%= @book.title %></b></h2>
+    <div class="table_information">
+      <div id="info-msg">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @book.assemblies.present? %>
+        <div id="" class="table-associations">
+          <table class="parts-manage-manage" style="width: 80%; margin: 0 auto">
+            <tr class="table-header-part">
+              <th class="table-header-title">Montagem</th>
+              <th class="table-header-title">Ações</th>
+            </tr>
+            <% @book.assemblies.each do |assembly| %>
+              <tr class="table-body-part">
+                <td class="table-body-content"><%= assembly.name %></td>
+                <td class="table-body-content">
+                  <%= button_tag 'Mostrar Peças', class: 'disassociate show-parts-button', data: { id: assembly.id } %>
+                  <button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Descartar</button>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+          <div id="partsModal" title="Peças da Montagem" style="display: none;">
+            <!-- Conteúdo do modal (será preenchido dinamicamente pela chamada Ajax) -->
+          </div>
+          <div id="loader" style="display: none;">
+            Carregando...
+          </div>
+        </div>
+      <% else %>
+        <table class="parts-manage-manage" style="width: 80%; margin: 0 auto">
+          <tr class="table-header-part">
+            <th class="table-header-title">Montagem</th>
+            <th class="table-header-title">Ações</th>
+          </tr>
+          <tr class="table-body-part">
+            <td class="table-body-content" colspan="2">
+              Não existem montagens aplicadas a este livro. Por favor inclua uma montagem
+            </td>
+          </tr>
+        </table>
+      <% end %>
+      <hr style="margin-top: 10px; margin-bottom: 5px">
+      <h2 class="title-normal text-center padding-up-down">Adicionar Montagem</h2>
+      <%= form_for(@book, url: join_to_assembly_path, method: :post) do |f| %>
+        <%= f.hidden_field :id, value: @book.id %>
+        <label style="margin-bottom: 10px">Escolha as montagens:</label>
+        <% Assembly.all.each do |assembly| %>
+          <div class="form-group">
+            <%= f.check_box :assembly_ids, { multiple: true, checked: false }, assembly.id, nil %>
+            <%= label_tag "books_assembly_ids_#{assembly.id}", assembly.name %>
+          </div>
+        <% end %>
+        <%= button_tag(type: 'submit') do %>
+          <i class='bx bxs-plus-circle'></i> &nbsp; Associar Montagem
+        <% end %>
+      <% end %>
+    </div>
+  </main>
+</div>
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            const checkboxes = $('input[type="checkbox"]');
+            let atLeastOneChecked = false;
+
+            checkboxes.each(function () {
+                if ($(this).prop('checked')) {
+                    atLeastOneChecked = true;
+                }
+            });
+
+            if (!atLeastOneChecked) {
+                alert('Pelo menos um checkbox deve ser marcado.');
+                event.preventDefault(); // Impede o envio do formulário
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        // Configurar o botão para abrir o modal e iniciar a chamada Ajax
+        $('.show-parts-button').on('click', function () {
+            var assemblyId = $(this).data('id');
+
+            // Exibir o loader durante a chamada Ajax
+            $('#loader').show();
+
+            // Fazer a chamada Ajax
+            $.ajax({
+                url: '<%= assembly_parts_path %>',
+                type: 'GET',
+                dataType: 'json',  // Indicar que estamos esperando JSON na resposta
+                data: {assembly_id: assemblyId},
+                success: function (response) {
+                    // Esconder o loader após a chamada Ajax ser bem-sucedida
+                    $('#loader').hide();
+
+                    // Manipular os dados JSON
+                    var parts = response.parts;
+                    // Fazer o que você precisa com os dados (por exemplo, exibir no modal)
+
+                    // Exemplo de exibição no console
+                    console.log(parts);
+
+                    // Limpa o conteúdo
+                    $('#partsModal').html('');
+
+                    // Constroi o conteúdo HTML para as peças
+                    var partsHTML = '<ul>';
+                    $.each(parts, function(index, part){
+                        partsHTML += '<li>' + part.name + '</li>';
+                    });
+                    partsHTML += '</ul>';
+
+                    // Inserir o conteúdo no HTML
+                    $('#partsModal').html(partsHTML);
+
+                    // Abrir o modal (se necessário)
+                    $('#partsModal').dialog({
+                        modal: true,
+                        width: 400,
+                        buttons: {
+                            Fechar: function () {
+                                $(this).dialog('close');
+                            }
+                        },
+                        dialogClass: 'base'
+                    });
+                },
+                error: function (error, xhr, status) {
+                    // Esconder o loader em caso de erro
+                    $('#loader').hide();
+                    console.error(error);
+                    console.log(xhr);
+                    console.log(status);
+                    console.error('Erro na chamada Ajax.');
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
