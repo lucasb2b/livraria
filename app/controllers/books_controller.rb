@@ -84,6 +84,18 @@ class BooksController < ApplicationController
     render json: { message: 'Registro excluídos com sucesso' }, status: :ok
   end
 
+  def destroy_assembly_by_book
+    assembly_id = params[:assembly_id]
+    book_id = params[:book_id]
+
+    # Encontrar e excluir o registro da tabela intermediária
+    book_assembly = BookAssembly.find_by(assembly_id: assembly_id, book_id: book_id)
+    book_assembly.destroy if book_assembly
+
+    # Responder com sucesso
+    head :no_content
+  end
+
   private
 
   def set_book

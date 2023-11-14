@@ -55,6 +55,8 @@ Rails.application.routes.draw do
 
   delete '/dashboard/book/delete_books_multiple', to: 'books#destroy_multiple', as: 'delete_books_multiple'
 
+  delete '/dashboard/book_assemblies/:assembly_id/:book_id', to: 'books#destroy_assembly_by_book'
+
   # Supplier
   post '/dashboard/supplier/', to: 'suppliers#create', as: 'create_supplier'
 

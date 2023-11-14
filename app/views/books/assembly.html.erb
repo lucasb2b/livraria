@@ -76,8 +76,12 @@
               <tr class="table-body-part">
                 <td class="table-body-content"><%= assembly.name %></td>
                 <td class="table-body-content">
-                  <%= button_tag 'Mostrar Peças', class: 'disassociate show-parts-button', data: { id: assembly.id } %>
-                  <button class="disassociate"><i class='bx bx-cut'></i> &nbsp;Descartar</button>
+                  <%= button_tag 'Mostrar Peças', class: 'show disassociate show-parts-button', data: { id: assembly.id } do %>
+                    <i class='bx bx-cut'></i> Mostrar Peças
+                  <% end %>
+                  <%= button_tag 'Descartar', class: 'drop disassociate show-parts-button', data: { assembly: assembly.id, book: @book.id } do %>
+                    <i class='bx bx-cut'></i> Descartar
+                  <% end %>
                 </td>
               </tr>
             <% end %>
@@ -141,7 +145,7 @@
 
     $(document).ready(function () {
         // Configurar o botão para abrir o modal e iniciar a chamada Ajax
-        $('.show-parts-button').on('click', function () {
+        $('.show').on('click', function () {
             var assemblyId = $(this).data('id');
 
             // Exibir o loader durante a chamada Ajax
@@ -169,7 +173,7 @@
 
                     // Constroi o conteúdo HTML para as peças
                     var partsHTML = '<ul>';
-                    $.each(parts, function(index, part){
+                    $.each(parts, function (index, part) {
                         partsHTML += '<li>' + part.name + '</li>';
                     });
                     partsHTML += '</ul>';
@@ -201,6 +205,35 @@
         });
     });
 
+    $(document).ready(function () {
+        $('.drop').on('click', function (){
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var assemblyId = $(this).data('assembly');
+            var bookId = $(this).data('book');
+            var rowToRemove = $(this).closest('tr'); // Armazenar a linha da tabela
+
+            // Fazer a chamada AJAX para desassociar
+            $.ajax({
+                url: '/dashboard/book_assemblies/' + assemblyId + '/' + bookId,
+                type: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': csrfToken // Inclua o token CSRF no cabeçalho da requisição
+                },
+                success: function(){
+                    // Remover a linha da tabela após a desassociação bem-sucedida
+                    rowToRemove.remove();
+                    // Exibir uma mensagem ou realizar outras ações conforme necessário
+                    console.log('Desassociação bem-sucedida!');
+                },
+                error: function(xhr) {
+                    // Lidar com erros, se necessário
+                    console.error('Erro na desassociação.');
+                    console.log(xhr);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
