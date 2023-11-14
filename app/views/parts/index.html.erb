@@ -81,11 +81,11 @@
           <tbody>
           <tr class="table-header">
             <td></td>
-            <td>Peça</td>
-            <td>Part Number</td>
+            <td style="text-align: center">Peça</td>
+            <td style="text-align: center">Part Number</td>
             <td>Descrição</td>
-            <td>Preço:</td>
-            <td>Está em quantas montagens?</td>
+            <td style="text-align: center">Preço:</td>
+            <td style="text-align: center">Fornecedor</td>
           </tr>
           <% @parts.each do |part| %>
             <tr>
@@ -93,16 +93,16 @@
               <td><%= part.name %></td>
               <td><%= part.part_number %></td>
               <% if part.description.present? %>
-                <td><%= truncate(part.description, length: 10, omission: '...') %></td>
+                <td><%= truncate(part.description, length: 30, omission: '...') %></td>
               <% else %>
                 <td>-</td>
               <% end %>
               <% if part.price.present? %>
-                <td><%= part.price %></td>
+                <td><%= number_to_currency(part.price, unit: "R$ ", precision: 2) %></td>
               <% else %>
                 <td>-</td>
               <% end %>
-              <td><%= Part.joins(:assemblies).where(parts: { id: part.id }).distinct.count('assemblies.id') %></td>
+              <td><%= part.supplier.name %></td>
             </tr>
           <% end %>
           </tbody>

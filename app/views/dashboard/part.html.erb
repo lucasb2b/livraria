@@ -61,6 +61,8 @@
         <%= f.number_field :price, step: 0.01 %>
         <%= f.label :part_number, "Part Number:" %>
         <%= f.text_field :part_number, id: "part_number", required: "true" %>
+        <%= f.label :supplier_id, "Qual o fornecedor desta peça:" %>
+        <%= f.collection_select :supplier_id, Supplier.all, :id, :name, prompt: "Selecione o fornecedor" %>
         <%= button_tag(type: 'submit') do %>
           <i class="bx bxs-plus-circle"></i>&nbsp;Cadastrar
         <% end %>
