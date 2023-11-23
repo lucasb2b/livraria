@@ -24,7 +24,7 @@ default: &default
 development:
   adapter: postgresql
   encoding: unicode
-  database: bookstore_production
+  database: bookstore_development
   username: deploy
   password: formula01
   pool: 5
@@ -62,7 +62,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: bookstore_production
+  database: bookstore_test
   username: deploy
   password: formula01
   pool: 5
