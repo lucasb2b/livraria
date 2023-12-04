@@ -14,7 +14,8 @@
   <header class="header2">
     <h1>Joia do Saber</h1>
   </header>
-  <div id="error-messages"></div>
+  <div id="error-messages" class="message-error"></div>
+  <div id="success-messages" class="message-success"></div>
   <div id="login_form2">
     <h4>Criar Conta</h4>
     <%= form_for(:user, url: create_user_path, method: :post) do |form| %>
@@ -54,7 +55,12 @@
                 },
                 data: JSON.stringify({user: user}),
                 success: function(data){
-                    console.log("deu certo" + data)
+                    var divInfo = $('#success-messages');
+                    divInfo.html("Usuário criado com sucesso!\n Redirecionando!");
+                    divInfo.toggle();
+                    setTimeout(function(){
+                        window.location.href = "/sessions/new"
+                    }, 3000);
                 },
                 error: function(xhr, status, error){
 
@@ -64,6 +70,7 @@
                     var content = msgErrors.join('');
                     var divInfo = $('#error-messages');
                     divInfo.html(content);
+                    divInfo.toggle();
 
                     divInfo.animate({ opacity: 0}, 5000, function (){
                         divInfo.empty().css('opacity', 1).show();
