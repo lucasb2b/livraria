@@ -111,4 +111,11 @@ Rails.application.routes.draw do
   get '/dashboard/assembly/assembly_assembly', to: 'assemblies#assembly_assembly', as: 'assembly_assembly'
 
   delete '/dashboard/assembly/delete_part', to: 'assemblies#destroy_part', as: 'delete_part'
+
+  # Filter Routes
+
+  # Books
+  get '/search/books', to: 'books#search_by_title', as: 'search_book_title', format: :js
+
+  get '/search/books_by_author', to: 'books#search_by_author', as: 'search_book_author', format: :js
 end

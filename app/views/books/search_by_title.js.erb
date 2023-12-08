@@ -1,0 +1,26 @@
+// Limpar o conteúdo atual da tabela
+$('#table_books tbody').empty();
+
+// Incluir o cabeçalho da tabela
+var headerRow = '<tr class="table-header">' +
+    '<td></td>' +
+    '<td>Título</td>' +
+    '<td>Data de Publicação</td>' +
+    '<td>Autor</td>' +
+    '<td>ISBN</td>' +
+    '<td>Montagens</td>' +
+    '</tr>';
+$('#table_books tbody').append(headerRow);
+
+// Incluir os resultados da busca
+<% @books.each do |book| %>
+var newRow = '<tr>' +
+    '<td style="text-align: center"><input type="checkbox" name="book_ids[]" id="book_ids_" value="<%= book.id %>" class="check_id" /></td>' +
+    '<td><%= book.title %></td>' +
+    '<td><%= book.published_at.strftime('%Y') %></td>' +
+    '<td><%= book.author.name %></td>' +
+    '<td><%= book.isbn %></td>' +
+    '<td><a class="button_action yellow" href="<%= assembly_books_path(book.id) %>">Gerenciar</a></td>' +
+    '</tr>';
+$('#table_books tbody').append(newRow);
+<% end %>

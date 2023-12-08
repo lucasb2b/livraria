@@ -64,8 +64,32 @@
           </div>
         <% end %>
       </div>
+
+      <form action="#">
+        <label class="label-filter">
+          <input type="radio" name="option" value="option1" checked onclick="showDiv('div1')" class="radio-filter">
+          Filtrar por Título do Livro
+        </label>
+        <label class="label-filter">
+          <input type="radio" name="option" value="option2" onclick="showDiv('div2')" class="radio-filter">
+          Filtrar por Autor do Livro
+        </label>
+      </form>
+
+      <div class="search-data hidden" id="div1">
+        <%= form_tag(search_book_title_path, method: "get", remote: true, id: "title_book") do %>
+          <%= text_field_tag :title, params[:title], placeholder: "Digite o título do livro", id: "book_title" %>
+        <% end %>
+      </div>
+
+      <div class="search-data hidden" id="div2">
+        <%= form_tag(search_book_author_path, method: "get", remote: true, id: "author_book") do %>
+          <%= text_field_tag :author_name, params[:author_name], placeholder: "Digite o nome do Autor", id: "book_author" %>
+        <% end %>
+      </div>
+
       <div class="table_data">
-        <table class="table_data_content">
+        <table class="table_data_content" id="table_books">
           <thead>
           <tr>
             <th colspan="3" class="text-left table-title">
@@ -169,6 +193,64 @@
             }
         });
     });
+
+    $(document).ready(function () {
+        $('#book_title').on('input', function () {
+            $.ajax({
+                type: "GET",
+                url: $('#title_book').attr('action'),
+                data: $('#title_book').serialize(),
+                dataType: "html",
+                success: function (data) {
+                    console.log(data)
+                    $('#table_books tbody').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Erro ao buscar dados");
+                    console.error(error);
+                    console.log(xhr)
+
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#book_author').on('input', function () {
+            $.ajax({
+                type: "GET",
+                url: $('#author_book').attr('action'),
+                data: $('#author_book').serialize(),
+                dataType: "html",
+                success: function (data) {
+                    console.log(data)
+                    $('#table_books tbody').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Erro ao buscar dados");
+                    console.error(error);
+                    console.log(xhr)
+
+                }
+            });
+        });
+    });
+</script>
+<script>
+  // Função para mostrar a div correspondente à opção selecionada
+  function showDiv(divId){
+      // Esconder todas as divs
+      var divs = document.querySelectorAll('.hidden');
+      divs.forEach(function(div){
+          div.style.display = 'none';
+      });
+
+      // Mostrar a div selecionada
+      var divSelected = document.getElementById(divId);
+      divSelected.style.display = 'block';
+  }
+
+  showDiv('div1');
 </script>
 </body>
 </html>

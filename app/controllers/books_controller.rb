@@ -4,6 +4,10 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @user = current_user
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -95,6 +99,30 @@ class BooksController < ApplicationController
     # Responder com sucesso
     head :no_content
   end
+
+  # Filtrar Livro com base no nome do autor
+
+  def search_by_title
+    @books = Book.where("title ILIKE ?", "%#{params[:title]}%")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def search_by_author
+    @authors = Author.where("name ILIKE ?", "%#{params[:author_name]}%")
+
+    if @authors.present?
+      @books = @authors.flat_map(&:books)
+    else
+      @books = []
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   private
 
