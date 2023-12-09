@@ -118,4 +118,6 @@ Rails.application.routes.draw do
   get '/search/books', to: 'books#search_by_title', as: 'search_book_title', format: :js
 
   get '/search/books_by_author', to: 'books#search_by_author', as: 'search_book_author', format: :js
+
+  get '/search/supplier_by_name', to: 'suppliers#search_by_supplier', as: 'search_supplier', format: :js
 end

@@ -65,6 +65,30 @@
           </div>
         <% end %>
       </div>
+
+      <form action="#">
+        <label class="label-filter">
+          <input type="radio" name="option" value="option1" checked onclick="showDiv('div1')" class="radio-filter">
+          Filtrar por Fornecedor &nbsp;
+        </label>
+        <label class="label-filter">
+          <input type="radio" name="option" value="option2" onclick="showDiv('div2')" class="radio-filter">
+          Filtrar por Conta Bancária
+        </label>
+      </form>
+
+      <div class="search-data hidden" id="div1">
+        <%= form_tag(search_supplier_path, method: "get", remote: true, id: "name_supplier") do %>
+          <%= text_field_tag :name, params[:name], placeholder: "Digite o nome do Fornecedor", id: "supplier_name" %>
+        <% end %>
+      </div>
+
+      <div class="search-data hidden" id="div2">
+        <%= form_tag(search_book_author_path, method: "get", remote: true, id: "author_book") do %>
+          <%= text_field_tag :author_name, params[:author_name], placeholder: "Digite o número da conta bancária", id: "book_author" %>
+        <% end %>
+      </div>
+
       <div class="table_data">
         <table class="table_data_content" id="lista-autores">
           <thead>
@@ -82,14 +106,16 @@
           <tbody>
           <tr class="table-header">
             <td></td>
-            <td colspan="2">Nome</td>
-            <td colspan="2">CNPJ</td>
+            <td colspan="2">Fornecedor</td>
+            <td>CNPJ</td>
+            <td>Nº da conta</td>
           </tr>
           <% @suppliers.each do |supplier| %>
             <tr>
               <td style="text-align: center"><%= check_box_tag 'supplier_ids[]', supplier.id, false, class: 'check_id' %></td>
               <td colspan="2"><%= supplier.name %></td>
-              <td colspan="2"><%= supplier.cnpj %></td>
+              <td><%= supplier.cnpj %></td>
+              <td><%= supplier.account.account_number %>-<%= supplier.account.verify_number %></td>
             </tr>
           <% end %>
           </tbody>
@@ -155,15 +181,15 @@
                         // Lógica de tratamento de erro, se necessário
                         console.error(xhr);
                         console.error(error);
-                        var msgErrors = xhr.responseJSON.errors.map(function(text) {
+                        var msgErrors = xhr.responseJSON.errors.map(function (text) {
                             return '<p>' + text + '</p>';
                         });
                         var content = msgErrors.join('');
                         var divInfo = $('#info-msg');
                         divInfo.html(content);
 
-                        divInfo.animate({ opacity: 0}, 2000, function (){
-                           divInfo.empty().css('opacity', 1).show();
+                        divInfo.animate({opacity: 0}, 2000, function () {
+                            divInfo.empty().css('opacity', 1).show();
                         });
                     }
                 });
@@ -173,6 +199,64 @@
         });
     });
 
+    $(document).ready(function () {
+        $('#supplier_name').on('input', function () {
+            $.ajax({
+                type: "GET",
+                url: $('#name_supplier').attr('action'),
+                data: $('#name_supplier').serialize(),
+                dataType: "html",
+                success: function (data) {
+                    console.log(data)
+                    $('#lista-autores tbody').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Erro ao buscar dados");
+                    console.error(error);
+                    console.log(xhr)
+
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#book_author').on('input', function () {
+            $.ajax({
+                type: "GET",
+                url: $('#name_supplier').attr('action'),
+                data: $('#name_supplier').serialize(),
+                dataType: "html",
+                success: function (data) {
+                    console.log(data)
+                    $('#table_books tbody').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Erro ao buscar dados");
+                    console.error(error);
+                    console.log(xhr)
+
+                }
+            });
+        });
+    });
+
+</script>
+<script>
+    // Função para mostrar a div correspondente à opção selecionada
+    function showDiv(divId) {
+        // Esconder todas as divs
+        var divs = document.querySelectorAll('.hidden');
+        divs.forEach(function (div) {
+            div.style.display = 'none';
+        });
+
+        // Mostrar a div selecionada
+        var divSelected = document.getElementById(divId);
+        divSelected.style.display = 'block';
+    }
+
+    showDiv('div1');
 </script>
 </body>
 </html>

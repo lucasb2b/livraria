@@ -1,0 +1,22 @@
+// Limpar o conteúdo atual da tabela
+$('#lista-autores tbody').empty();
+
+// Incluir o cabeçalho da tabela
+var headerRow = '<tr class="table-header">' +
+    '<td></td>' +
+    '<td colspan="2">Fornecedor</td>' +
+    '<td>CNPJ</td>' +
+    '<td>Nº da conta</td>' +
+    '</tr>';
+$('#lista-autores tbody').append(headerRow);
+
+// Incluir os resultados da busca
+<% @suppliers.each do |supplier| %>
+var newRow = '<tr>' +
+    '<td style="text-align: center"><%= check_box_tag 'supplier_ids[]', supplier.id, false, class: 'check_id' %></td>' +
+    '<td colspan="2"><%= supplier.name %></td>' +
+    '<td><%= supplier.cnpj %></td>' +
+    '<td><%= supplier.account.account_number %>-<%= supplier.account.verify_number %></td>' +
+    '</tr>';
+$('#lista-autores tbody').append(newRow);
+<% end %>

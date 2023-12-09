@@ -5,11 +5,14 @@ class SuppliersController < ApplicationController
     @suppliers = Supplier.all
     @user = current_user
   end
+
   def show
   end
+
   def new
     @supplier = Supplier.new
   end
+
   def create
     @supplier = Supplier.new(supplier_params)
 
@@ -21,10 +24,12 @@ class SuppliersController < ApplicationController
       redirect_to dashboard_supplier_path
     end
   end
+
   def edit
     @supplier = Supplier.find(params[:id])
     @user = current_user
   end
+
   def update
     @supplier = Supplier.find(params[:id])
     if @supplier.update(supplier_params)
@@ -35,6 +40,7 @@ class SuppliersController < ApplicationController
       redirect_to dashboard_supplier_path
     end
   end
+
   def destroy
     selected_ids = params[:selected_ids]
     errors = []
@@ -55,9 +61,9 @@ class SuppliersController < ApplicationController
     end
 
     if errors.any?
-      render json: {errors: errors}, status: :unprocessable_entity
+      render json: { errors: errors }, status: :unprocessable_entity
     else
-      render json: {message: 'Registros excluídos com sucesso!'}, status: :ok
+      render json: { message: 'Registros excluídos com sucesso!' }, status: :ok
     end
   end
 
@@ -86,16 +92,25 @@ class SuppliersController < ApplicationController
     end
 
     if errors.any?
-      render json: {errors: errors}, status: :unprocessable_entity
+      render json: { errors: errors }, status: :unprocessable_entity
     else
-      render json: {message: 'Registros excluídos com sucesso!'}, status: :ok
+      render json: { message: 'Registros excluídos com sucesso!' }, status: :ok
+    end
+  end
+
+  def search_by_supplier
+    @suppliers = Supplier.where("name ILIKE ?", "%#{params[:name]}%")
+    respond_to do |format|
+      format.js
     end
   end
 
   private
+
   def set_supplier
     @supplier = Supplier.find(params[:id])
   end
+
   def supplier_params
     params.require(:supplier).permit(:name, :cnpj)
   end
