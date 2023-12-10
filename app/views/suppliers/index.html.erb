@@ -84,8 +84,8 @@
       </div>
 
       <div class="search-data hidden" id="div2">
-        <%= form_tag(search_book_author_path, method: "get", remote: true, id: "author_book") do %>
-          <%= text_field_tag :author_name, params[:author_name], placeholder: "Digite o número da conta bancária", id: "book_author" %>
+        <%= form_tag(search_supplier_account_path, method: "get", remote: true, id: "supplier_account") do %>
+          <%= text_field_tag :account, params[:account], placeholder: "Digite o número da conta bancária", id: "account_supplier" %>
         <% end %>
       </div>
 
@@ -221,15 +221,15 @@
     });
 
     $(document).ready(function () {
-        $('#book_author').on('input', function () {
+        $('#account_supplier').on('input', function () {
             $.ajax({
                 type: "GET",
-                url: $('#name_supplier').attr('action'),
-                data: $('#name_supplier').serialize(),
-                dataType: "html",
+                url: $('#supplier_account').attr('action'),
+                data: $('#supplier_account').serialize(),
+                dataType: "script",
                 success: function (data) {
-                    console.log(data)
-                    $('#table_books tbody').html(data);
+                    /*console.log(data)
+                    $('#lista-autores tbody').html(data);*/
                 },
                 error: function (xhr, status, error) {
                     console.log("Erro ao buscar dados");

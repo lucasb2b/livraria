@@ -105,6 +105,16 @@ class SuppliersController < ApplicationController
     end
   end
 
+  def search_by_account
+    @suppliers = Supplier.where("CAST(accounts.account_number AS TEXT) ILIKE ?", "%#{params[:account]}%")
+                         .joins(:account)
+                         .distinct
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
   def set_supplier
