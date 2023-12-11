@@ -64,7 +64,7 @@
     height: calc(100vh - 100px);
 }
 
-@media only screen and (min-width: 1010px) and (max-width: 1026px){
+@media only screen and (min-width: 1010px) and (max-width: 1026px) {
 
     .header3 #username {
         width: 696px;
@@ -80,7 +80,7 @@
 
 }
 
-@media only screen and (min-width: 1278px) and (max-width: 1282px){
+@media only screen and (min-width: 1278px) and (max-width: 1282px) {
     #content main {
         width: calc(1280px - 328px);
     }
@@ -90,7 +90,7 @@
     }
 }
 
-@media only screen and (min-width: 1360px) and (max-width: 1368px){
+@media only screen and (min-width: 1360px) and (max-width: 1368px) {
     #content main {
         width: calc(1350px - 328px);
     }
@@ -557,3 +557,44 @@ form button {
     width: auto;
     height: auto;
 }
+
+/* tabs */
+.tabs {
+    overflow: hidden;
+    margin-top: 30px;
+    margin-left: 24px;
+}
+
+.tab-button {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    float: left;
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+.tab-content {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.tab-content .table_information {
+    width: 100%;
+}
+
+.tab-content h2 {
+    color: #333;
+    margin-left: 0;
+    margin-top: 5px;
+    margin-bottom: 12px;
+}
+
+/* end of tabs */

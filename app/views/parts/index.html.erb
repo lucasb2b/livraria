@@ -56,59 +56,96 @@
   </aside>
   <main>
     <h2>Verificar Peças</h2>
-    <div class="table_information">
-      <div id="info-msg">
-        <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>">
-            <%= value %>
-          </div>
-        <% end %>
-      </div>
-      <div class="table_data">
-        <table class="table_data_content">
-          <thead>
-          <tr>
-            <th colspan="4" class="text-left table-title">
-              Gerenciar Peças
-            </th>
-            <th colspan="2" style="text-align: right">
-              <%= link_to 'Adicionar Peça', dashboard_part_path, class: 'button_action green' %>
-              <%= link_to 'Editar', '#', class: 'button_action blue', id: 'edit-selected-button' %>
-              <%= link_to 'Apagar', '#', class: 'button_action red', id: 'delete-selected-button' %>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="table-header">
-            <td></td>
-            <td style="text-align: center">Peça</td>
-            <td style="text-align: center">Part Number</td>
-            <td>Descrição</td>
-            <td style="text-align: center">Preço:</td>
-            <td style="text-align: center">Fornecedor</td>
-          </tr>
-          <% @parts.each do |part| %>
-            <tr>
-              <td style="text-align: center"><%= check_box_tag 'part_ids[]', part.id, false, class: 'check_id' %></td>
-              <td><%= part.name %></td>
-              <td><%= part.part_number %></td>
-              <% if part.description.present? %>
-                <td><%= truncate(part.description, length: 30, omission: '...') %></td>
-              <% else %>
-                <td>-</td>
-              <% end %>
-              <% if part.price.present? %>
-                <td><%= number_to_currency(part.price, unit: "R$ ", precision: 2) %></td>
-              <% else %>
-                <td>-</td>
-              <% end %>
-              <td><%= part.supplier.name %></td>
-            </tr>
+    <!-- Start -->
+    <div class="tabs">
+      <button class="tab-button" onclick="openTab(event, 'tab1')">Verificar Peças</button>
+      <button class="tab-button" onclick="openTab(event, 'tab2')">Pesquisar</button>
+    </div>
+
+    <div id="tab1" class="tab-content">
+      <div class="table_information">
+        <div id="info-msg">
+          <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>">
+              <%= value %>
+            </div>
           <% end %>
-          </tbody>
-        </table>
+        </div>
+        <div class="table_data">
+          <table class="table_data_content">
+            <thead>
+            <tr>
+              <th colspan="3" class="text-left table-title">
+                Gerenciar Peças
+              </th>
+              <th colspan="3" style="text-align: right">
+                <%= link_to 'Adicionar Peça', dashboard_part_path, class: 'button_action green' %>
+                <%= link_to 'Editar', '#', class: 'button_action blue', id: 'edit-selected-button' %>
+                <%= link_to 'Apagar', '#', class: 'button_action red', id: 'delete-selected-button' %>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-header">
+              <td></td>
+              <td style="text-align: center">Peça</td>
+              <td style="text-align: center">Part Number</td>
+              <td>Descrição</td>
+              <td style="text-align: center">Preço:</td>
+              <td style="text-align: center">Fornecedor</td>
+            </tr>
+            <% @parts.each do |part| %>
+              <tr>
+                <td style="text-align: center"><%= check_box_tag 'part_ids[]', part.id, false, class: 'check_id' %></td>
+                <td><%= part.name %></td>
+                <td><%= part.part_number %></td>
+                <% if part.description.present? %>
+                  <td><%= truncate(part.description, length: 30, omission: '...') %></td>
+                <% else %>
+                  <td>-</td>
+                <% end %>
+                <% if part.price.present? %>
+                  <td><%= number_to_currency(part.price, unit: "R$ ", precision: 2) %></td>
+                <% else %>
+                  <td>-</td>
+                <% end %>
+                <td><%= part.supplier.name %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
+    <div id="tab2" class="tab-content">
+      <h2 style="font-size: 20px">Pesquisar por montagens ou peças</h2>
+
+      <form action="#">
+        <label class="label-filter">
+          <input type="radio" name="option" value="option1" checked onclick="showDiv('div1')" class="radio-filter">
+          Filtrar por peças em montagens &nbsp;
+        </label>
+        <label class="label-filter">
+          <input type="radio" name="option" value="option2" onclick="showDiv('div2')" class="radio-filter">
+          Filtrar por montagens em peças
+        </label>
+      </form>
+
+      <div class="search-data hidden" id="div1">
+        <%= form_tag(search_book_title_path, method: "get", remote: true, id: "title_book") do %>
+          <%= text_field_tag :title, params[:title], placeholder: "Digite a peça desejada", id: "book_title" %>
+        <% end %>
+      </div>
+
+      <div class="search-data hidden" id="div2">
+        <%= form_tag(search_book_author_path, method: "get", remote: true, id: "author_book") do %>
+          <%= text_field_tag :author_name, params[:author_name], placeholder: "Digite a montagem desejada", id: "book_author" %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- End -->
   </main>
 </div>
 <script type="text/javascript">
@@ -188,6 +225,47 @@
             }
         });
     });
+</script>
+<script>
+    function openTab(event, tabName) {
+        var i, tabContent, tabButton;
+
+        // Esconder todos os conteúdos da aba
+        tabContent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabContent.length; i++) {
+            tabContent[i].style.display = "none";
+        }
+
+        // Remover a classe ativa de todos os botões de abas
+        tabButton = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tabButton.length; i++) {
+            tabButton[i].classList.remove("active");
+        }
+
+        // Exibir o conteúdo da aba selecionada e adicionar a classe ativa ao botão
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.classList.add("active");
+    }
+
+    // Abrir a primeira aba por padrão
+    document.getElementById("tab1").style.display = "block";
+    document.getElementsByClassName("tab-button")[0].classList.add("active");
+</script>
+<script>
+    // Função para mostrar a div correspondente à opção selecionada
+    function showDiv(divId){
+        // Esconder todas as divs
+        var divs = document.querySelectorAll('.hidden');
+        divs.forEach(function(div){
+            div.style.display = 'none';
+        });
+
+        // Mostrar a div selecionada
+        var divSelected = document.getElementById(divId);
+        divSelected.style.display = 'block';
+    }
+
+    showDiv('div1');
 </script>
 </body>
 </html>

@@ -160,7 +160,7 @@
                             const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
                             $.ajax({
-                                url: `/dashboard/assembly/parts/?id=${partId}&assembly_id=${assemblyId}`,
+                                url: `/dashboard/assembly/delete_part/?id=${partId}&assembly_id=${assemblyId}`,
                                 method: "DELETE",
                                 headers: {
                                     'X-CSRF-Token': csrfToken
